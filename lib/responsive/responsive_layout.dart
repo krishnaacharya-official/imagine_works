@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class ResponsiveLayout extends StatelessWidget {
   final Widget mobileBody;
@@ -18,6 +15,9 @@ class ResponsiveLayout extends StatelessWidget {
     return LayoutBuilder(builder: (context, constraints) {
       if (constraints.maxWidth < 500) {
         return mobileBody;
+      }
+      if (constraints.maxWidth < 1100) {
+        // return tabletBody;
       }
       return desktopBody;
     });

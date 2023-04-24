@@ -141,7 +141,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             gradient: buttonGraident),
         child: Center(
           child: Text(
-            "Next",
+            "Create",
             style: title,
           ),
         ),
