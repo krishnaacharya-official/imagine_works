@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+double get maxWidthWeb => 1200;
+
 LinearGradient get onBoardingGradient => const LinearGradient(
       begin: Alignment(0, -1),
       end: Alignment(-0, 1),
@@ -44,14 +46,13 @@ LinearGradient get webGradientThree => const LinearGradient(
       stops: <double>[0, 1],
     );
 
-TextStyle get webHeaderBold =>
-    const TextStyle(fontSize: 36, fontWeight: FontWeight.bold);
-
 TextStyle get webHeader => const TextStyle(
-      fontSize: 36,
+      fontSize: 20,
     );
-TextStyle get mainHeader =>
+TextStyle get webTitle =>
     const TextStyle(fontWeight: FontWeight.w700, fontSize: 56);
+TextStyle get webSubTitle =>
+    const TextStyle(fontWeight: FontWeight.w700, fontSize: 36);
 
 TextStyle get webButton =>
     const TextStyle(fontSize: 36, fontWeight: FontWeight.w500);
