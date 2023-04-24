@@ -650,15 +650,15 @@ class _CarouselChangeReasonDemoState extends State<CarouselChangeReasonDemo> {
   String reason = '';
   final CarouselController _controller = CarouselController();
   int _index = 0;
-  List<String> carouselStrings = [
-    "Custom Models",
-    "Image Generation",
-    "Video Generation",
-    "Image Upscaling",
-    "Inpainting",
-    "Outpainting",
-    "Image to Image",
-    "Video to Video"
+  List<FeaturesModel> carouselStrings = [
+    FeaturesModel("Custom Models", "", []),
+    FeaturesModel("Image Generation", "", []),
+    FeaturesModel("Video Generation", "", []),
+    FeaturesModel("Image Upscaling", "", []),
+    FeaturesModel("Inpainting", "", []),
+    FeaturesModel("Outpainting", "", []),
+    FeaturesModel("Image to Image", "", []),
+    FeaturesModel("Video to Video", "", []),
   ];
   void onPageChange(int index, CarouselPageChangedReason changeReason) {
     debugPrint("Index in pageChange $index");
@@ -689,7 +689,7 @@ class _CarouselChangeReasonDemoState extends State<CarouselChangeReasonDemo> {
                         width: 1000,
                         height: 400,
                         child: Text(
-                          item,
+                          item.title,
                           style: const TextStyle(color: Colors.black),
                         ),
                       ),
@@ -724,7 +724,7 @@ class _CarouselChangeReasonDemoState extends State<CarouselChangeReasonDemo> {
                   )),
             ))
         .toList();
-    List<List<String>> subLists = splitList(carouselStrings, 4);
+    List<List<FeaturesModel>> subLists = splitList(carouselStrings, 4);
     return Scaffold(
         appBar: AppBar(title: const Text('Change reason demo')),
         body: Column(
@@ -745,7 +745,7 @@ class _CarouselChangeReasonDemoState extends State<CarouselChangeReasonDemo> {
                               });
                             },
                             child: Chip(
-                              label: Text(e),
+                              label: Text(e.title),
                               backgroundColor: e == carouselStrings[_index]
                                   ? Colors.amber
                                   : Colors.black,
@@ -765,7 +765,7 @@ class _CarouselChangeReasonDemoState extends State<CarouselChangeReasonDemo> {
                               });
                             },
                             child: Chip(
-                              label: Text(e),
+                              label: Text(e.title),
                               backgroundColor: e == carouselStrings[_index]
                                   ? Colors.amber
                                   : Colors.black,
@@ -819,8 +819,8 @@ class _CarouselChangeReasonDemoState extends State<CarouselChangeReasonDemo> {
         ));
   }
 
-  List<List<String>> splitList(List<String> list, int chunkSize) {
-    List<List<String>> chunks = [];
+  List<List<FeaturesModel>> splitList(List<FeaturesModel> list, int chunkSize) {
+    List<List<FeaturesModel>> chunks = [];
     for (var i = 0; i < list.length; i += chunkSize) {
       chunks.add(list.sublist(
           i, i + chunkSize > list.length ? list.length : i + chunkSize));
