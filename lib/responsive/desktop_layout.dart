@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +15,7 @@ class DesktopLayout extends StatefulWidget {
 }
 
 class _MyWidgetState extends State<DesktopLayout> {
+  GlobalKey sliderKey = GlobalKey();
   String reason = '';
   final CarouselController _controller = CarouselController();
   int _index = 0;
@@ -63,8 +66,46 @@ class _MyWidgetState extends State<DesktopLayout> {
       );
   // late List<Widget> imageSlider;
   late List<Widget> imageSlider;
+  ScrollController scrollController = ScrollController();
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      double minScrollExtent1 = scrollController.position.minScrollExtent;
+      double maxScrollExtent1 = scrollController.position.maxScrollExtent;
+      //
+      animateToMaxMin(maxScrollExtent1, minScrollExtent1, maxScrollExtent1, 25,
+          scrollController);
+    });
+  }
+
+  animateToMaxMin(double max, double min, double direction, int seconds,
+      ScrollController scrollController) {
+    scrollController
+        .animateTo(direction,
+            duration: Duration(seconds: seconds), curve: Curves.linear)
+        .then((value) {
+      direction = direction == max ? min : max;
+      animateToMaxMin(max, min, direction, seconds, scrollController);
+    });
+  }
+
+  Timer? timer;
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // timer ??= Timer.periodic(const Duration(seconds: 5), (timer) {
+    //   double minScrollExtent = scrollController.position.minScrollExtent;
+    //   double maxScrollExtent = scrollController.position.maxScrollExtent;
+    //   animateToMaxMin(maxScrollExtent, minScrollExtent, maxScrollExtent, 25,
+    //       scrollController);
+    // });
     SizedBox getHorizontalSpace(double height) {
       return SizedBox(
         height: height,
@@ -148,6 +189,20 @@ class _MyWidgetState extends State<DesktopLayout> {
               topComponent(getHorizontalSpace),
               getHorizontalSpace(20),
               sliderAndFeaturesComponent(getHorizontalSpace, subLists),
+              SizedBox(
+                height: 200,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    controller: scrollController,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: 8,
+                    itemBuilder: ((context, index) => Container(
+                          color: Colors.amber,
+                          width: 200,
+                          height: 200,
+                          child: const Text("Hello"),
+                        ))),
+              )
             ],
           ),
         ),
@@ -198,9 +253,18 @@ class _MyWidgetState extends State<DesktopLayout> {
               const SizedBox(
                 width: 80,
               ),
-              Text(
-                "Product",
-                style: webHeader,
+              InkWell(
+                onTap: () {
+                  Scrollable.ensureVisible(
+                    sliderKey.currentContext!,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  );
+                },
+                child: Text(
+                  "Product",
+                  style: webHeader,
+                ),
               ),
               const SizedBox(
                 width: 15,
@@ -260,6 +324,7 @@ class _MyWidgetState extends State<DesktopLayout> {
       SizedBox Function(double height) getHorizontalSpace,
       List<List<FeaturesModel>> subLists) {
     return Column(
+      key: sliderKey,
       children: [
         sliderComponent(getHorizontalSpace, subLists),
         featuresComponent(getHorizontalSpace),
