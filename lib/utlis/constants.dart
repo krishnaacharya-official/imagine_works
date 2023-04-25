@@ -84,12 +84,16 @@ TextStyle get mobileFooter =>
     const TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
 TextStyle get webTitle =>
     const TextStyle(fontWeight: FontWeight.w700, fontSize: 56);
+TextStyle get tabTitle =>
+    const TextStyle(fontWeight: FontWeight.w700, fontSize: 42);
 TextStyle get mobileTitle =>
     const TextStyle(fontWeight: FontWeight.w700, fontSize: 32);
 TextStyle get webSubTitle => const TextStyle(
     fontWeight: FontWeight.w600, fontSize: 36, letterSpacing: 0.8);
 TextStyle get mobileSubTitle => const TextStyle(
     fontWeight: FontWeight.w600, fontSize: 22, letterSpacing: 0.8);
+TextStyle get tabSubTitle => const TextStyle(
+    fontWeight: FontWeight.w600, fontSize: 28, letterSpacing: 0.8);
 TextStyle get webButton =>
     const TextStyle(fontSize: 36, fontWeight: FontWeight.w500);
 

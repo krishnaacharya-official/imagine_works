@@ -1,9 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:imagine_works/helpers/navigation_bar.dart';
 import 'package:imagine_works/models/feature_model.dart';
 import 'package:imagine_works/responsive/resuable_components.dart';
 import 'package:imagine_works/utlis/constants.dart';
@@ -63,16 +62,6 @@ class _TabletLayoutState extends State<TabletLayout> {
 
   @override
   Widget build(BuildContext context) {
-    List<List<FeaturesModel>> splitList(
-        List<FeaturesModel> list, int chunkSize) {
-      List<List<FeaturesModel>> chunks = [];
-      for (var i = 0; i < list.length; i += chunkSize) {
-        chunks.add(list.sublist(
-            i, i + chunkSize > list.length ? list.length : i + chunkSize));
-      }
-      return chunks;
-    }
-
     imageSlider = carouselStrings
         .map((item) => Container(
               margin: const EdgeInsets.all(5.0),
@@ -128,16 +117,41 @@ class _TabletLayoutState extends State<TabletLayout> {
                   )),
             ))
         .toList();
-
-    List<List<FeaturesModel>> subLists = splitList(carouselStrings, 4);
     return Scaffold(
+      appBar: AppBar(
+        title: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+          SvgPicture.asset(
+            'assets/svg/idea.svg',
+            width: 30,
+            height: 30,
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Text(
+            "ImagineWorks",
+            style: webHeader.copyWith(fontWeight: FontWeight.bold),
+          )
+        ]),
+        actions: [
+          Builder(builder: (context) {
+            return IconButton(
+                onPressed: () {
+                  Scaffold.of(context).openEndDrawer();
+                },
+                icon: const Icon(Icons.menu));
+          })
+        ],
+      ),
+      endDrawer:
+          CustomNavigationBar(aboutUsKey: aboutUsKey, sliderKey: sliderKey),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             topComponent(),
-            sliderAndFeaturesComponent(subLists),
+            sliderAndFeaturesComponent(),
             getHorizontalSpace(10),
             showTrustedParnters ? trustedPartners() : const SizedBox.shrink(),
             awardsSection(),
@@ -159,141 +173,147 @@ class _TabletLayoutState extends State<TabletLayout> {
             thickness: 0.5,
           ),
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            constraints:
-                BoxConstraints(minWidth: maxWidthWeb, maxWidth: maxWidthWeb),
-            width: double.infinity,
-            child: Row(
-                crossAxisAlignment: CrossAxisAlignment.baseline,
-                textBaseline: TextBaseline.alphabetic,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "\u00a9 AAUNO 2023",
-                    style: webFooter,
-                  ),
-                  Row(children: [
-                    const SizedBox(
-                      width: 180,
+            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "\u00a9 AAUNO 2023",
+                          style: mobileFooter,
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                      ]),
+                ),
+                getHorizontalSpace(10),
+                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  InkWell(
+                    onTap: () {},
+                    child: Text(
+                      "Terms of Service",
+                      style: mobileFooter,
                     ),
-                    InkWell(
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  InkWell(
                       onTap: () {},
-                      child: Text(
-                        "Terms of Service",
-                        style: webFooter,
+                      child: Text("Privacy", style: mobileFooter)),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  InkWell(
+                      onTap: () {},
+                      child: Text("Code of Conduct", style: mobileFooter))
+                ]),
+                getHorizontalSpace(10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    InkWell(
+                      child: SvgPicture.asset(
+                        'assets/svg/facebook.svg',
+                        height: 20,
+                        width: 20,
                       ),
                     ),
                     const SizedBox(
-                      width: 15,
+                      width: 10,
                     ),
                     InkWell(
-                        onTap: () {}, child: Text("Privacy", style: webFooter)),
+                      child: SvgPicture.asset(
+                        'assets/svg/instagram.svg',
+                        height: 20,
+                        width: 20,
+                      ),
+                    ),
                     const SizedBox(
-                      width: 15,
+                      width: 10,
                     ),
                     InkWell(
-                        onTap: () {},
-                        child: Text("Code of Conduct", style: webFooter))
-                  ]),
-                  Row(children: [
-                    Row(
+                      child: SvgPicture.asset(
+                        'assets/svg/linkedin.svg',
+                        height: 20,
+                        width: 20,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    InkWell(
+                      child: SvgPicture.asset(
+                        'assets/svg/reddit.svg',
+                        height: 20,
+                        width: 20,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    InkWell(
+                      child: SvgPicture.asset(
+                        'assets/svg/twitter.svg',
+                        height: 20,
+                        width: 20,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    InkWell(
+                      child: SvgPicture.asset(
+                        'assets/svg/youtube.svg',
+                        height: 20,
+                        width: 20,
+                      ),
+                    )
+                  ],
+                ),
+                getHorizontalSpace(10),
+                Container(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    // border: Border.all(width: 0.5, color: Colors.grey),
+                    gradient: const LinearGradient(
+                      begin: Alignment(0, -1),
+                      end: Alignment(-0, 1),
+                      colors: <Color>[Color(0xffffffff), Color(0xfff3f4f6)],
+                      stops: <double>[0, 1],
+                    ),
+                  ),
+                  child: InkWell(
+                    onTap: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        InkWell(
-                          child: SvgPicture.asset(
-                            'svg/facebook.svg',
-                            height: 20,
-                            width: 20,
-                          ),
+                        SvgPicture.asset(
+                          'assets/svg/idea.svg',
+                          width: 20,
+                          height: 20,
                         ),
                         const SizedBox(
                           width: 10,
                         ),
-                        InkWell(
-                          child: SvgPicture.asset(
-                            'svg/instagram.svg',
-                            height: 20,
-                            width: 20,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        InkWell(
-                          child: SvgPicture.asset(
-                            'svg/linkedin.svg',
-                            height: 20,
-                            width: 20,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        InkWell(
-                          child: SvgPicture.asset(
-                            'svg/reddit.svg',
-                            height: 20,
-                            width: 20,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        InkWell(
-                          child: SvgPicture.asset(
-                            'svg/twitter.svg',
-                            height: 20,
-                            width: 20,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        InkWell(
-                          child: SvgPicture.asset(
-                            'svg/youtube.svg',
-                            height: 20,
-                            width: 20,
-                          ),
+                        Text(
+                          "Join the beta",
+                          style: mobileFooter.copyWith(
+                              fontWeight: FontWeight.bold),
                         )
                       ],
                     ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        // border: Border.all(width: 0.5, color: Colors.grey),
-                        gradient: const LinearGradient(
-                          begin: Alignment(0, -1),
-                          end: Alignment(-0, 1),
-                          colors: <Color>[Color(0xffffffff), Color(0xfff3f4f6)],
-                          stops: <double>[0, 1],
-                        ),
-                      ),
-                      child: InkWell(
-                        onTap: () {},
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/svg/idea.svg',
-                              width: 20,
-                              height: 20,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "Join the beta",
-                              style: webFooter.copyWith(
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ])
-                ]),
+                  ),
+                )
+              ],
+            ),
           )
         ],
       ),
@@ -302,7 +322,7 @@ class _TabletLayoutState extends State<TabletLayout> {
 
   Container aboutUs() {
     return Container(
-      padding: const EdgeInsets.only(top: 20, bottom: 40),
+      padding: const EdgeInsets.only(top: 20, bottom: 40, left: 24, right: 24),
       width: double.infinity,
       child: Center(
         child: SizedBox(
@@ -312,8 +332,8 @@ class _TabletLayoutState extends State<TabletLayout> {
               Text(
                 "Who Are We ?",
                 textAlign: TextAlign.center,
-                style: webSubTitle.copyWith(
-                    fontWeight: FontWeight.w600, fontSize: 32),
+                style: tabSubTitle.copyWith(
+                    fontWeight: FontWeight.w600, fontSize: 26),
               ),
               getHorizontalSpace(20),
               Text(
@@ -357,23 +377,23 @@ class _TabletLayoutState extends State<TabletLayout> {
                 text: TextSpan(children: [
                   TextSpan(
                     text: "An ",
-                    style: webSubTitle.copyWith(
+                    style: tabSubTitle.copyWith(
                         fontWeight: FontWeight.w100, color: Colors.black38),
                   ),
                   TextSpan(
                       text: "award-winning ",
-                      style: webSubTitle.copyWith(fontWeight: FontWeight.bold)),
+                      style: tabSubTitle.copyWith(fontWeight: FontWeight.bold)),
                   TextSpan(
                     text: "platform.",
-                    style: webSubTitle.copyWith(
+                    style: tabSubTitle.copyWith(
                         fontWeight: FontWeight.w100, color: Colors.black38),
                   ),
                   TextSpan(
                       text: " Loved ",
-                      style: webSubTitle.copyWith(fontWeight: FontWeight.bold)),
+                      style: tabSubTitle.copyWith(fontWeight: FontWeight.bold)),
                   TextSpan(
                     text: "by customers.",
-                    style: webSubTitle.copyWith(
+                    style: tabSubTitle.copyWith(
                         fontWeight: FontWeight.w100, color: Colors.black38),
                   ),
                 ])),
@@ -400,7 +420,7 @@ class _TabletLayoutState extends State<TabletLayout> {
               ),
             ),
             getHorizontalSpace(20),
-            Row(
+            Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 awardCard(
@@ -412,7 +432,7 @@ class _TabletLayoutState extends State<TabletLayout> {
                     ),
                     "Award text"),
                 const SizedBox(
-                  width: 20,
+                  height: 10,
                 ),
                 awardCard(
                     getHorizontalSpace,
@@ -435,7 +455,6 @@ class _TabletLayoutState extends State<TabletLayout> {
                     "Award text")
               ],
             ),
-            Row()
           ],
         ),
       ),
@@ -445,9 +464,9 @@ class _TabletLayoutState extends State<TabletLayout> {
   Card awardCard(SizedBox Function(double height) getHorizontalSpace,
       Widget image, String text) {
     return Card(
-      elevation: 2,
+      elevation: 1.5,
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             image,
@@ -502,12 +521,7 @@ class _TabletLayoutState extends State<TabletLayout> {
         gradient: webGradientTwo,
         // color: Colors.green,
       ),
-      child: Column(
-        children: [
-          headerComponent(),
-          mainComponent(),
-        ],
-      ),
+      child: mainComponent(),
     );
   }
 
@@ -615,18 +629,18 @@ class _TabletLayoutState extends State<TabletLayout> {
     );
   }
 
-  Column sliderAndFeaturesComponent(List<List<FeaturesModel>> subLists) {
+  Column sliderAndFeaturesComponent() {
     return Column(
       key: sliderKey,
       children: [
-        sliderComponent(subLists),
+        sliderComponent(),
         featuresComponent(),
       ],
     );
     //
   }
 
-  Container sliderComponent(List<List<FeaturesModel>> subLists) {
+  Container sliderComponent() {
     return Container(
         padding: const EdgeInsets.only(top: 10, bottom: 20),
         margin: const EdgeInsets.only(bottom: 10),
@@ -636,17 +650,13 @@ class _TabletLayoutState extends State<TabletLayout> {
             children: <Widget>[
               Text(
                 "Our Products",
-                style: webSubTitle,
+                style: tabSubTitle,
               ),
               getHorizontalSpace(20),
               // Wrap(children: imageSlider.map((e) => e).toList()),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  featureTabRow(subLists[0]),
-                  getHorizontalSpace(20),
-                  featureTabRow(subLists[1]),
-                ],
+                children: [featureTabRow(carouselStrings)],
               ),
               getHorizontalSpace(20),
               carouselComponent(),
@@ -656,54 +666,54 @@ class _TabletLayoutState extends State<TabletLayout> {
             ]));
   }
 
-  SingleChildScrollView featureTabRow(List<FeaturesModel> subLists) {
-    return SingleChildScrollView(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: subLists
-            .map((e) => InkWell(
-                  onTap: () {
-                    debugPrint("${carouselStrings.indexOf(e)}");
-                    setState(() {
-                      _index = carouselStrings.indexOf(e);
-                      _controller.animateToPage(_index);
-                    });
-                  },
-                  child: Row(
-                    children: [
-                      Chip(
-                        side: BorderSide.none,
-                        label: Text(
-                          e.title,
-                          style: TextStyle(
-                              fontWeight: e == carouselStrings[_index]
-                                  ? FontWeight.bold
-                                  : FontWeight.normal),
-                        ),
-                        backgroundColor: e == carouselStrings[_index]
-                            ? Colors.grey.shade400
-                            : Colors.grey.withOpacity(0.1),
+  Widget featureTabRow(List<FeaturesModel> subLists) {
+    return Wrap(
+      spacing: 5,
+      runSpacing: 5,
+      alignment: WrapAlignment.center,
+      children: subLists
+          .map((e) => InkWell(
+                onTap: () {
+                  debugPrint("${carouselStrings.indexOf(e)}");
+                  setState(() {
+                    _index = carouselStrings.indexOf(e);
+                    _controller.animateToPage(_index);
+                  });
+                },
+                child: Wrap(
+                  children: [
+                    Chip(
+                      side: BorderSide.none,
+                      label: Text(
+                        e.title,
+                        style: TextStyle(
+                            fontWeight: e == carouselStrings[_index]
+                                ? FontWeight.bold
+                                : FontWeight.normal),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      )
-                    ],
-                  ),
-                ))
-            .toList(),
-      ),
+                      backgroundColor: e == carouselStrings[_index]
+                          ? Colors.grey.shade400
+                          : Colors.grey.withOpacity(0.1),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    )
+                  ],
+                ),
+              ))
+          .toList(),
     );
   }
 
   SizedBox carouselComponent() {
     return SizedBox(
       width: double.infinity,
-      height: 600,
+      height: 500,
       child: CarouselSlider(
         items: imageSlider,
         options: CarouselOptions(
-          height: 500,
-          viewportFraction: 0.55,
+          height: 400,
+          viewportFraction: 0.8,
           enlargeCenterPage: true,
           aspectRatio: 1,
           onPageChanged: onPageChange,
@@ -717,13 +727,13 @@ class _TabletLayoutState extends State<TabletLayout> {
   Container featuresComponent() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.only(bottom: 20),
+      padding: const EdgeInsets.only(bottom: 20, left: 16, right: 16),
       decoration: BoxDecoration(gradient: webGradientOne),
       child: Column(
         children: [
           Text(
             carouselStrings[_index].title,
-            style: webSubTitle,
+            style: tabSubTitle,
           ),
           getHorizontalSpace(20),
           Container(
@@ -763,7 +773,7 @@ class _TabletLayoutState extends State<TabletLayout> {
           getHorizontalSpace(60),
           Text(
             "Where Imagination Meets Intelligence",
-            style: webTitle,
+            style: tabTitle,
             textAlign: TextAlign.center,
           ),
           getHorizontalSpace(100),
