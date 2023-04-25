@@ -170,156 +170,6 @@ class _TabletLayoutState extends State<TabletLayout> {
           ],
         ),
       ),
-      bottomNavigationBar: SizedBox(
-        height: 160,
-        child: Center(
-          child: SizedBox(
-            width: maxWidthWeb,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "\u00a9 AAUNO 2023",
-                          style: mobileFooter,
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                      ]),
-                ),
-                getHorizontalSpace(10),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Text(
-                          "Terms of Service",
-                          style: mobileFooter,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      InkWell(
-                          onTap: () {},
-                          child: Text("Privacy", style: mobileFooter)),
-                      const SizedBox(
-                        width: 15,
-                      ),
-                      InkWell(
-                          onTap: () {},
-                          child: Text("Code of Conduct", style: mobileFooter))
-                    ]),
-                getHorizontalSpace(10),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      child: SvgPicture.asset(
-                        'assets/svg/facebook.svg',
-                        height: 20,
-                        width: 20,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    InkWell(
-                      child: SvgPicture.asset(
-                        'assets/svg/instagram.svg',
-                        height: 20,
-                        width: 20,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    InkWell(
-                      child: SvgPicture.asset(
-                        'assets/svg/linkedin.svg',
-                        height: 20,
-                        width: 20,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    InkWell(
-                      child: SvgPicture.asset(
-                        'assets/svg/reddit.svg',
-                        height: 20,
-                        width: 20,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    InkWell(
-                      child: SvgPicture.asset(
-                        'assets/svg/twitter.svg',
-                        height: 20,
-                        width: 20,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    InkWell(
-                      child: SvgPicture.asset(
-                        'assets/svg/youtube.svg',
-                        height: 20,
-                        width: 20,
-                      ),
-                    )
-                  ],
-                ),
-                getHorizontalSpace(10),
-                Container(
-                  padding: const EdgeInsets.only(top: 10, bottom: 10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    // border: Border.all(width: 0.5, color: Colors.grey),
-                    gradient: const LinearGradient(
-                      begin: Alignment(0, -1),
-                      end: Alignment(-0, 1),
-                      colors: <Color>[Color(0xffffffff), Color(0xfff3f4f6)],
-                      stops: <double>[0, 1],
-                    ),
-                  ),
-                  child: InkWell(
-                    onTap: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/svg/idea.svg',
-                          width: 20,
-                          height: 20,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Text(
-                          "Join the beta",
-                          style: mobileFooter.copyWith(
-                              fontWeight: FontWeight.bold),
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-        ),
-      ),
     );
   }
 
@@ -332,6 +182,144 @@ class _TabletLayoutState extends State<TabletLayout> {
           const Divider(
             height: 0.5,
             thickness: 0.5,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: double.infinity,
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Text(
+                    "\u00a9 AAUNO 2023",
+                    style: mobileFooter,
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                ]),
+              ),
+              getHorizontalSpace(10),
+              Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                InkWell(
+                  onTap: () {},
+                  child: Text(
+                    "Terms of Service",
+                    style: mobileFooter,
+                  ),
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                InkWell(
+                    onTap: () {}, child: Text("Privacy", style: mobileFooter)),
+                const SizedBox(
+                  width: 15,
+                ),
+                InkWell(
+                    onTap: () {},
+                    child: Text("Code of Conduct", style: mobileFooter))
+              ]),
+              getHorizontalSpace(10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  InkWell(
+                    child: SvgPicture.asset(
+                      'assets/svg/facebook.svg',
+                      height: 20,
+                      width: 20,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    child: SvgPicture.asset(
+                      'assets/svg/instagram.svg',
+                      height: 20,
+                      width: 20,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    child: SvgPicture.asset(
+                      'assets/svg/linkedin.svg',
+                      height: 20,
+                      width: 20,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    child: SvgPicture.asset(
+                      'assets/svg/reddit.svg',
+                      height: 20,
+                      width: 20,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    child: SvgPicture.asset(
+                      'assets/svg/twitter.svg',
+                      height: 20,
+                      width: 20,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    child: SvgPicture.asset(
+                      'assets/svg/youtube.svg',
+                      height: 20,
+                      width: 20,
+                    ),
+                  )
+                ],
+              ),
+              getHorizontalSpace(10),
+              Container(
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  // border: Border.all(width: 0.5, color: Colors.grey),
+                  gradient: const LinearGradient(
+                    begin: Alignment(0, -1),
+                    end: Alignment(-0, 1),
+                    colors: <Color>[Color(0xffffffff), Color(0xfff3f4f6)],
+                    stops: <double>[0, 1],
+                  ),
+                ),
+                child: InkWell(
+                  onTap: () {},
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/svg/idea.svg',
+                        width: 20,
+                        height: 20,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Join the beta",
+                        style:
+                            mobileFooter.copyWith(fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
           ),
         ],
       ),

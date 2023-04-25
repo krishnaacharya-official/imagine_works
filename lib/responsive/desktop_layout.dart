@@ -150,10 +150,26 @@ class _MyWidgetState extends State<DesktopLayout> {
           )),
         ),
       ),
-      bottomNavigationBar: SizedBox(
-        height: 60,
-        child: Center(
-          child: Container(
+      // bottomNavigationBar: SizedBox(
+      //   height: 60,
+      //   child: Center(
+      //     child:
+      //   ),
+      // ),
+    );
+  }
+
+  Container footerSection() {
+    return Container(
+      decoration: BoxDecoration(gradient: webGradientOne),
+      child: Column(
+        children: [
+          aboutUs(),
+          const Divider(
+            height: 0.5,
+            thickness: 0.5,
+          ),
+          Container(
             padding: const EdgeInsets.symmetric(vertical: 16),
             width: maxWidthWeb,
             // constraints:
@@ -289,21 +305,6 @@ class _MyWidgetState extends State<DesktopLayout> {
                     )
                   ])
                 ]),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Container footerSection() {
-    return Container(
-      decoration: BoxDecoration(gradient: webGradientOne),
-      child: Column(
-        children: [
-          aboutUs(),
-          const Divider(
-            height: 0.5,
-            thickness: 0.5,
           ),
         ],
       ),
