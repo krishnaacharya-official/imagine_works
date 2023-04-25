@@ -126,41 +126,38 @@ class _MyWidgetState extends State<DesktopLayout> {
 
     List<List<FeaturesModel>> subLists = splitList(carouselStrings, 4);
     return Scaffold(
-      body: SingleChildScrollView(
-          child: StickyHeader(
-        header: headerComponent(),
-        content: Column(
-          key: headerKey,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            topComponent(),
-            sliderAndFeaturesComponent(subLists),
-            getHorizontalSpace(10),
-            showTrustedParnters ? trustedPartners() : const SizedBox.shrink(),
-            awardsSection(),
-            footerSection(),
-          ],
+      body: Center(
+        child: SizedBox(
+          width: 1920,
+          child: SingleChildScrollView(
+              child: StickyHeader(
+            header: headerComponent(),
+            content: Column(
+              key: headerKey,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                topComponent(),
+                sliderAndFeaturesComponent(subLists),
+                getHorizontalSpace(10),
+                showTrustedParnters
+                    ? trustedPartners()
+                    : const SizedBox.shrink(),
+                awardsSection(),
+                footerSection(),
+              ],
+            ),
+          )),
         ),
-      )),
-    );
-  }
-
-  Container footerSection() {
-    return Container(
-      decoration: BoxDecoration(gradient: webGradientOne),
-      child: Column(
-        children: [
-          aboutUs(),
-          const Divider(
-            height: 0.5,
-            thickness: 0.5,
-          ),
-          Container(
+      ),
+      bottomNavigationBar: SizedBox(
+        height: 60,
+        child: Center(
+          child: Container(
             padding: const EdgeInsets.symmetric(vertical: 16),
-            constraints:
-                BoxConstraints(minWidth: maxWidthWeb, maxWidth: maxWidthWeb),
-            width: double.infinity,
+            width: maxWidthWeb,
+            // constraints:
+            //     BoxConstraints(minWidth: maxWidthWeb, maxWidth: maxWidthWeb),
             child: Row(
                 crossAxisAlignment: CrossAxisAlignment.baseline,
                 textBaseline: TextBaseline.alphabetic,
@@ -292,7 +289,22 @@ class _MyWidgetState extends State<DesktopLayout> {
                     )
                   ])
                 ]),
-          )
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container footerSection() {
+    return Container(
+      decoration: BoxDecoration(gradient: webGradientOne),
+      child: Column(
+        children: [
+          aboutUs(),
+          const Divider(
+            height: 0.5,
+            thickness: 0.5,
+          ),
         ],
       ),
     );

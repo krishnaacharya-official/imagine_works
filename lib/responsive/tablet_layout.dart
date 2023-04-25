@@ -170,21 +170,11 @@ class _TabletLayoutState extends State<TabletLayout> {
           ],
         ),
       ),
-    );
-  }
-
-  Container footerSection() {
-    return Container(
-      decoration: BoxDecoration(gradient: webGradientOne),
-      child: Column(
-        children: [
-          aboutUs(),
-          const Divider(
-            height: 0.5,
-            thickness: 0.5,
-          ),
-          Container(
-            padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+      bottomNavigationBar: SizedBox(
+        height: 160,
+        child: Center(
+          child: SizedBox(
+            width: maxWidthWeb,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -204,27 +194,29 @@ class _TabletLayoutState extends State<TabletLayout> {
                       ]),
                 ),
                 getHorizontalSpace(10),
-                Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  InkWell(
-                    onTap: () {},
-                    child: Text(
-                      "Terms of Service",
-                      style: mobileFooter,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  InkWell(
-                      onTap: () {},
-                      child: Text("Privacy", style: mobileFooter)),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  InkWell(
-                      onTap: () {},
-                      child: Text("Code of Conduct", style: mobileFooter))
-                ]),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      InkWell(
+                        onTap: () {},
+                        child: Text(
+                          "Terms of Service",
+                          style: mobileFooter,
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      InkWell(
+                          onTap: () {},
+                          child: Text("Privacy", style: mobileFooter)),
+                      const SizedBox(
+                        width: 15,
+                      ),
+                      InkWell(
+                          onTap: () {},
+                          child: Text("Code of Conduct", style: mobileFooter))
+                    ]),
                 getHorizontalSpace(10),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -325,7 +317,22 @@ class _TabletLayoutState extends State<TabletLayout> {
                 )
               ],
             ),
-          )
+          ),
+        ),
+      ),
+    );
+  }
+
+  Container footerSection() {
+    return Container(
+      decoration: BoxDecoration(gradient: webGradientOne),
+      child: Column(
+        children: [
+          aboutUs(),
+          const Divider(
+            height: 0.5,
+            thickness: 0.5,
+          ),
         ],
       ),
     );
