@@ -2,6 +2,34 @@ import 'package:flutter/material.dart';
 
 double get maxWidthWeb => 1200;
 
+bool get showTrustedParnters => true;
+
+List<String> listPartner = [
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/mbc.svg",
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/google.svg",
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/vox.svg",
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/pentagram.svg",
+
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/mbc.svg",
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/google.svg",
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/vox.svg",
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/pentagram.svg",
+
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/mbc.svg",
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/google.svg",
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/vox.svg",
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/pentagram.svg",
+
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/mbc.svg",
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/google.svg",
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/vox.svg",
+  "https://d3phaj0sisr2ct.cloudfront.net/site/logos/pentagram.svg",
+  // "https://d3phaj0sisr2ct.cloudfront.net/site/logos/cbs.svg",
+  // "https://d3phaj0sisr2ct.cloudfront.net/site/logos/corridor.svg",
+  // "	https://d3phaj0sisr2ct.cloudfront.net/site/logos/mrbeast.svg",
+  // "https://d3phaj0sisr2ct.cloudfront.net/site/logos/vaynermedia.svg",
+];
+
 LinearGradient get onBoardingGradient => const LinearGradient(
       begin: Alignment(0, -1),
       end: Alignment(-0, 1),
@@ -49,13 +77,15 @@ LinearGradient get webGradientThree => const LinearGradient(
 TextStyle get webHeader => const TextStyle(
       fontSize: 20,
     );
+TextStyle get webFooter =>
+    const TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
 TextStyle get webTitle =>
     const TextStyle(fontWeight: FontWeight.w700, fontSize: 56);
-TextStyle get webSubTitle =>
-    const TextStyle(fontWeight: FontWeight.w700, fontSize: 36);
+TextStyle get webSubTitle => const TextStyle(
+    fontWeight: FontWeight.w600, fontSize: 36, letterSpacing: 0.8);
 
 TextStyle get webButton =>
     const TextStyle(fontSize: 36, fontWeight: FontWeight.w500);
 
 TextStyle get webBody =>
-    const TextStyle(fontSize: 26, fontWeight: FontWeight.w500);
+    const TextStyle(fontSize: 16, fontWeight: FontWeight.w400);

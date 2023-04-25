@@ -1,7 +1,6 @@
-import 'dart:async';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:imagine_works/utlis/constants.dart';
 
@@ -16,6 +15,7 @@ class DesktopLayout extends StatefulWidget {
 
 class _MyWidgetState extends State<DesktopLayout> {
   GlobalKey sliderKey = GlobalKey();
+  GlobalKey aboutUsKey = GlobalKey();
   String reason = '';
   final CarouselController _controller = CarouselController();
   int _index = 0;
@@ -70,48 +70,33 @@ class _MyWidgetState extends State<DesktopLayout> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      double minScrollExtent1 = scrollController.position.minScrollExtent;
-      double maxScrollExtent1 = scrollController.position.maxScrollExtent;
-      //
-      animateToMaxMin(maxScrollExtent1, minScrollExtent1, maxScrollExtent1, 25,
-          scrollController);
+    Future.delayed(const Duration(seconds: 1), () {
+      scrollController.animateTo(scrollController.position.maxScrollExtent,
+          duration: Duration(seconds: carouselStrings.length * 10),
+          curve: Curves.linear);
+    });
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        // Scroll has reached the end, reset the position to the beginning.
+        scrollController.jumpTo(scrollController.position.minScrollExtent);
+      }
     });
   }
-
-  animateToMaxMin(double max, double min, double direction, int seconds,
-      ScrollController scrollController) {
-    scrollController
-        .animateTo(direction,
-            duration: Duration(seconds: seconds), curve: Curves.linear)
-        .then((value) {
-      direction = direction == max ? min : max;
-      animateToMaxMin(max, min, direction, seconds, scrollController);
-    });
-  }
-
-  Timer? timer;
 
   @override
   void dispose() {
-    timer?.cancel();
     super.dispose();
+  }
+
+  SizedBox getHorizontalSpace(double height) {
+    return SizedBox(
+      height: height,
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    // timer ??= Timer.periodic(const Duration(seconds: 5), (timer) {
-    //   double minScrollExtent = scrollController.position.minScrollExtent;
-    //   double maxScrollExtent = scrollController.position.maxScrollExtent;
-    //   animateToMaxMin(maxScrollExtent, minScrollExtent, maxScrollExtent, 25,
-    //       scrollController);
-    // });
-    SizedBox getHorizontalSpace(double height) {
-      return SizedBox(
-        height: height,
-      );
-    }
-
     List<List<FeaturesModel>> splitList(
         List<FeaturesModel> list, int chunkSize) {
       List<List<FeaturesModel>> chunks = [];
@@ -155,7 +140,7 @@ class _MyWidgetState extends State<DesktopLayout> {
                                 iconSize: 100,
                                 icon: const Icon(
                                   Icons.navigate_before,
-                                  color: Colors.black26,
+                                  color: Colors.black38,
                                 ))),
                       ),
                       Visibility(
@@ -170,7 +155,7 @@ class _MyWidgetState extends State<DesktopLayout> {
                                 iconSize: 100,
                                 icon: const Icon(
                                   Icons.navigate_next,
-                                  color: Colors.black26,
+                                  color: Colors.black38,
                                 ))),
                       ),
                     ],
@@ -181,27 +166,206 @@ class _MyWidgetState extends State<DesktopLayout> {
     List<List<FeaturesModel>> subLists = splitList(carouselStrings, 4);
     return Scaffold(
       body: SingleChildScrollView(
-        child: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            topComponent(),
+            sliderAndFeaturesComponent(subLists),
+            getHorizontalSpace(10),
+            showTrustedParnters ? trustedPartners() : const SizedBox.shrink(),
+            awardsSection(),
+            footerSection(),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container footerSection() {
+    return Container(
+      decoration: BoxDecoration(gradient: webGradientOne),
+      child: Column(
+        children: [
+          aboutUs(),
+          const Divider(
+            height: 0.5,
+            thickness: 0.5,
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 16),
+            constraints:
+                BoxConstraints(minWidth: maxWidthWeb, maxWidth: maxWidthWeb),
+            width: double.infinity,
+            child: Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "\u00a9 AAUNO 2023",
+                    style: webFooter,
+                  ),
+                  Row(children: [
+                    const SizedBox(
+                      width: 180,
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Text(
+                        "Terms of Service",
+                        style: webFooter,
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    InkWell(
+                        onTap: () {}, child: Text("Privacy", style: webFooter)),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    InkWell(
+                        onTap: () {},
+                        child: Text("Code of Conduct", style: webFooter))
+                  ]),
+                  Row(children: [
+                    Row(
+                      children: [
+                        InkWell(
+                          child: SvgPicture.asset(
+                            'svg/facebook.svg',
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        InkWell(
+                          child: SvgPicture.asset(
+                            'svg/instagram.svg',
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        InkWell(
+                          child: SvgPicture.asset(
+                            'svg/linkedin.svg',
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        InkWell(
+                          child: SvgPicture.asset(
+                            'svg/reddit.svg',
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        InkWell(
+                          child: SvgPicture.asset(
+                            'svg/twitter.svg',
+                            height: 20,
+                            width: 20,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        InkWell(
+                          child: SvgPicture.asset(
+                            'svg/youtube.svg',
+                            height: 20,
+                            width: 20,
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      width: 15,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        // border: Border.all(width: 0.5, color: Colors.grey),
+                        gradient: const LinearGradient(
+                          begin: Alignment(0, -1),
+                          end: Alignment(-0, 1),
+                          colors: <Color>[Color(0xffffffff), Color(0xfff3f4f6)],
+                          stops: <double>[0, 1],
+                        ),
+                      ),
+                      child: InkWell(
+                        onTap: () {},
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/svg/idea.svg',
+                              width: 20,
+                              height: 20,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Text(
+                              "Join the beta",
+                              style: webFooter.copyWith(
+                                  fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ])
+                ]),
+          )
+        ],
+      ),
+    );
+  }
+
+  Container aboutUs() {
+    return Container(
+      padding: const EdgeInsets.only(top: 20, bottom: 40),
+      width: double.infinity,
+      child: Center(
+        child: SizedBox(
+          width: maxWidthWeb - 400,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              topComponent(getHorizontalSpace),
+              Text(
+                "Who Are We ?",
+                textAlign: TextAlign.center,
+                style: webSubTitle.copyWith(
+                    fontWeight: FontWeight.w600, fontSize: 32),
+              ),
               getHorizontalSpace(20),
-              sliderAndFeaturesComponent(getHorizontalSpace, subLists),
-              SizedBox(
-                height: 200,
-                child: ListView.builder(
-                    shrinkWrap: true,
-                    controller: scrollController,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 8,
-                    itemBuilder: ((context, index) => Container(
-                          color: Colors.amber,
-                          width: 200,
-                          height: 200,
-                          child: const Text("Hello"),
-                        ))),
+              Text(
+                "AAUNO is an independent research lab focused in the field of Artificial Intelligence, Blockchain and Autonomous Systems, exploring efficient and cost effective ways in solving problems in these domain.",
+                style: webBody,
+                textAlign: TextAlign.center,
+              ),
+              getHorizontalSpace(10),
+              Text(
+                "We believe everyone is unique and has a story. Our mission is to make technology accessible to all.",
+                style: webBody,
+                textAlign: TextAlign.center,
+              ),
+              getHorizontalSpace(10),
+              Text(
+                "We are a small self-funded, fully-distributed passionate team who are domain experts in there field working with decades of experience and an incredible set of open minded advisors.",
+                style: webBody,
+                textAlign: TextAlign.center,
               )
             ],
           ),
@@ -210,7 +374,162 @@ class _MyWidgetState extends State<DesktopLayout> {
     );
   }
 
-  Container topComponent(SizedBox Function(double height) getHorizontalSpace) {
+  Container awardsSection() {
+    return Container(
+      key: aboutUsKey,
+      width: double.infinity,
+      padding: const EdgeInsets.only(bottom: 20),
+      decoration: BoxDecoration(gradient: webGradientTwo),
+      child: Container(
+        padding: const EdgeInsets.only(top: 10),
+        constraints: BoxConstraints(maxWidth: maxWidthWeb),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(children: [
+                  TextSpan(
+                    text: "An ",
+                    style: webSubTitle.copyWith(
+                        fontWeight: FontWeight.w100, color: Colors.black38),
+                  ),
+                  TextSpan(
+                      text: "award-winning ",
+                      style: webSubTitle.copyWith(fontWeight: FontWeight.bold)),
+                  TextSpan(
+                    text: "platform.",
+                    style: webSubTitle.copyWith(
+                        fontWeight: FontWeight.w100, color: Colors.black38),
+                  ),
+                  TextSpan(
+                      text: " Loved ",
+                      style: webSubTitle.copyWith(fontWeight: FontWeight.bold)),
+                  TextSpan(
+                    text: "by customers.",
+                    style: webSubTitle.copyWith(
+                        fontWeight: FontWeight.w100, color: Colors.black38),
+                  ),
+                ])),
+            const SizedBox(
+              height: 20,
+            ),
+            const Text("Based on 10000+ customer reviews,"),
+            getHorizontalSpace(20),
+            GestureDetector(
+              onTap: () {},
+              child: RatingBar.builder(
+                initialRating: 5,
+                minRating: 5,
+                direction: Axis.horizontal,
+                itemCount: 5,
+                itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                itemBuilder: (context, _) => const Icon(
+                  Icons.star,
+                  color: Colors.amber,
+                ),
+                onRatingUpdate: (rating) {
+                  print(rating);
+                },
+              ),
+            ),
+            getHorizontalSpace(20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                awardCard(
+                    getHorizontalSpace,
+                    Container(
+                      width: 200,
+                      height: 200,
+                      color: Colors.amber,
+                    ),
+                    "Award text"),
+                const SizedBox(
+                  width: 20,
+                ),
+                awardCard(
+                    getHorizontalSpace,
+                    Container(
+                      width: 200,
+                      height: 200,
+                      color: Colors.amber,
+                    ),
+                    "Award text"),
+                const SizedBox(
+                  width: 20,
+                ),
+                awardCard(
+                    getHorizontalSpace,
+                    Container(
+                      width: 200,
+                      height: 200,
+                      color: Colors.amber,
+                    ),
+                    "Award text")
+              ],
+            ),
+            Row()
+          ],
+        ),
+      ),
+    );
+  }
+
+  Card awardCard(SizedBox Function(double height) getHorizontalSpace,
+      Widget image, String text) {
+    return Card(
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            image,
+            getHorizontalSpace(10),
+            Text(text),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container trustedPartners() {
+    return Container(
+      padding: const EdgeInsets.only(bottom: 20),
+      child: Column(
+        children: [
+          const Text(
+            "Trust by the top creatives",
+            style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.w400,
+                color: Colors.black38),
+          ),
+          getHorizontalSpace(10),
+          SizedBox(
+            height: 100,
+            child: ListView.builder(
+                shrinkWrap: true,
+                controller: scrollController,
+                scrollDirection: Axis.horizontal,
+                itemCount: listPartner.length,
+                itemBuilder: ((context, index) {
+                  return Row(
+                    children: [
+                      SvgPicture.network(listPartner[index]),
+                      const SizedBox(
+                        width: 10,
+                      )
+                    ],
+                  );
+                })),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Container topComponent() {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -228,7 +547,8 @@ class _MyWidgetState extends State<DesktopLayout> {
 
   Container headerComponent() {
     return Container(
-      constraints: BoxConstraints(maxWidth: maxWidthWeb),
+      constraints: BoxConstraints(minWidth: maxWidthWeb, maxWidth: maxWidthWeb),
+      width: double.infinity,
       child: Row(
           crossAxisAlignment: CrossAxisAlignment.baseline,
           textBaseline: TextBaseline.alphabetic,
@@ -269,11 +589,19 @@ class _MyWidgetState extends State<DesktopLayout> {
               const SizedBox(
                 width: 15,
               ),
-              Text("Subscribe", style: webHeader),
+              InkWell(child: Text("Subscribe", style: webHeader)),
               const SizedBox(
                 width: 15,
               ),
-              Text("About Us", style: webHeader)
+              InkWell(
+                  onTap: () {
+                    Scrollable.ensureVisible(
+                      aboutUsKey.currentContext!,
+                      duration: const Duration(milliseconds: 1000),
+                      curve: Curves.easeInOut,
+                    );
+                  },
+                  child: Text("About Us", style: webHeader))
             ]),
             Row(children: [
               Row(
@@ -292,6 +620,7 @@ class _MyWidgetState extends State<DesktopLayout> {
                 width: 15,
               ),
               Container(
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   // border: Border.all(width: 0.5, color: Colors.grey),
@@ -310,7 +639,7 @@ class _MyWidgetState extends State<DesktopLayout> {
                     ),
                     Text(
                       "Join the beta",
-                      style: webHeader.copyWith(fontWeight: FontWeight.bold),
+                      style: webHeader.copyWith(fontWeight: FontWeight.w600),
                     )
                   ],
                 ),
@@ -320,23 +649,21 @@ class _MyWidgetState extends State<DesktopLayout> {
     );
   }
 
-  Column sliderAndFeaturesComponent(
-      SizedBox Function(double height) getHorizontalSpace,
-      List<List<FeaturesModel>> subLists) {
+  Column sliderAndFeaturesComponent(List<List<FeaturesModel>> subLists) {
     return Column(
       key: sliderKey,
       children: [
-        sliderComponent(getHorizontalSpace, subLists),
+        sliderComponent(subLists),
         featuresComponent(getHorizontalSpace),
       ],
     );
     //
   }
 
-  Container sliderComponent(SizedBox Function(double height) getHorizontalSpace,
-      List<List<FeaturesModel>> subLists) {
+  Container sliderComponent(List<List<FeaturesModel>> subLists) {
     return Container(
         padding: const EdgeInsets.only(top: 10, bottom: 20),
+        margin: const EdgeInsets.only(bottom: 10),
         decoration: BoxDecoration(gradient: webGradientThree),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -405,12 +732,12 @@ class _MyWidgetState extends State<DesktopLayout> {
   SizedBox carouselComponent() {
     return SizedBox(
       width: double.infinity,
-      height: 400,
+      height: 600,
       child: CarouselSlider(
         items: imageSlider,
         options: CarouselOptions(
-          height: 400,
-          viewportFraction: 0.5,
+          height: 500,
+          viewportFraction: 0.55,
           enlargeCenterPage: true,
           aspectRatio: 1,
           onPageChanged: onPageChange,
@@ -424,6 +751,7 @@ class _MyWidgetState extends State<DesktopLayout> {
   Container featuresComponent(
       SizedBox Function(double height) getHorizontalSpace) {
     return Container(
+      width: double.infinity,
       padding: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(gradient: webGradientOne),
       child: Column(
@@ -471,6 +799,7 @@ class _MyWidgetState extends State<DesktopLayout> {
           Text(
             "Where Imagination Meets Intelligence",
             style: webTitle,
+            textAlign: TextAlign.center,
           ),
           getHorizontalSpace(100),
           joinTheBetaButton,
