@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:imagine_works/responsive/resuable_components.dart';
 import 'package:imagine_works/utlis/constants.dart';
 
 import '../models/feature_model.dart';
@@ -19,24 +20,6 @@ class _MyWidgetState extends State<DesktopLayout> {
   String reason = '';
   final CarouselController _controller = CarouselController();
   int _index = 0;
-  List<FeaturesModel> carouselStrings = [
-    FeaturesModel("Custom Models", "",
-        ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
-    FeaturesModel("Image Generation", "",
-        ["Yello", "Yello", "Yello", "Yello", "Yello", "Yello"]),
-    FeaturesModel("Video Generation", "",
-        ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
-    FeaturesModel("Image Upscaling", "",
-        ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
-    FeaturesModel("Inpainting", "",
-        ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
-    FeaturesModel("Outpainting", "",
-        ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
-    FeaturesModel("Image to Image", "",
-        ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
-    FeaturesModel("Video to Video", "",
-        ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
-  ];
   void onPageChange(int index, CarouselPageChangedReason changeReason) {
     debugPrint("Index in pageChange $index");
     setState(() {
@@ -45,54 +28,29 @@ class _MyWidgetState extends State<DesktopLayout> {
     });
   }
 
-  get joinTheBetaButton => Container(
-        height: 48,
-        width: 120,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          // border: Border.all(width: 0.5, color: Colors.grey),
-          gradient: const LinearGradient(
-            begin: Alignment(0, -1),
-            end: Alignment(-0, 1),
-            colors: <Color>[Color(0xffffffff), Color(0xfff3f4f6)],
-            stops: <double>[0, 1],
-          ),
-        ),
-        alignment: Alignment.center,
-        child: Text(
-          "Join the Beta",
-          style: title.copyWith(fontWeight: FontWeight.bold),
-        ),
-      );
   // late List<Widget> imageSlider;
   late List<Widget> imageSlider;
   ScrollController scrollController = ScrollController();
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 1), () {
-      scrollController.animateTo(scrollController.position.maxScrollExtent,
-          duration: Duration(seconds: carouselStrings.length * 10),
-          curve: Curves.linear);
-    });
-    scrollController.addListener(() {
-      if (scrollController.position.pixels ==
-          scrollController.position.maxScrollExtent) {
-        // Scroll has reached the end, reset the position to the beginning.
-        scrollController.jumpTo(scrollController.position.minScrollExtent);
-      }
-    });
+    _scroll();
+  }
+
+  Future<void> _scroll() async {
+    while (true) {
+      await Future.delayed(const Duration(milliseconds: 40));
+      scrollController.animateTo(
+        scrollController.position.maxScrollExtent,
+        duration: Duration(seconds: carouselStrings.length * 10),
+        curve: Curves.ease,
+      );
+    }
   }
 
   @override
   void dispose() {
     super.dispose();
-  }
-
-  SizedBox getHorizontalSpace(double height) {
-    return SizedBox(
-      height: height,
-    );
   }
 
   @override
@@ -539,7 +497,7 @@ class _MyWidgetState extends State<DesktopLayout> {
       child: Column(
         children: [
           headerComponent(),
-          mainComponent(getHorizontalSpace),
+          mainComponent(),
         ],
       ),
     );
@@ -654,7 +612,7 @@ class _MyWidgetState extends State<DesktopLayout> {
       key: sliderKey,
       children: [
         sliderComponent(subLists),
-        featuresComponent(getHorizontalSpace),
+        featuresComponent(),
       ],
     );
     //
@@ -748,8 +706,7 @@ class _MyWidgetState extends State<DesktopLayout> {
     );
   }
 
-  Container featuresComponent(
-      SizedBox Function(double height) getHorizontalSpace) {
+  Container featuresComponent() {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.only(bottom: 20),
@@ -782,7 +739,7 @@ class _MyWidgetState extends State<DesktopLayout> {
     );
   }
 
-  Container mainComponent(SizedBox Function(double height) getHorizontalSpace) {
+  Container mainComponent() {
     return Container(
       padding: const EdgeInsets.only(bottom: 20),
       constraints: BoxConstraints(maxWidth: maxWidthWeb),

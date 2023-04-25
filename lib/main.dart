@@ -20,9 +20,9 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Imagine Works',
         theme: theme,
-        home: const ResponsiveLayout(
+        home: ResponsiveLayout(
           mobileBody: MobileLayout(),
-          desktopBody: DesktopLayout(),
+          desktopBody: const DesktopLayout(),
         ));
   }
 }

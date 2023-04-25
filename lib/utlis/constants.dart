@@ -77,15 +77,23 @@ LinearGradient get webGradientThree => const LinearGradient(
 TextStyle get webHeader => const TextStyle(
       fontSize: 20,
     );
+
 TextStyle get webFooter =>
     const TextStyle(fontSize: 16, fontWeight: FontWeight.w600);
+TextStyle get mobileFooter =>
+    const TextStyle(fontSize: 14, fontWeight: FontWeight.w500);
 TextStyle get webTitle =>
     const TextStyle(fontWeight: FontWeight.w700, fontSize: 56);
+TextStyle get mobileTitle =>
+    const TextStyle(fontWeight: FontWeight.w700, fontSize: 32);
 TextStyle get webSubTitle => const TextStyle(
     fontWeight: FontWeight.w600, fontSize: 36, letterSpacing: 0.8);
-
+TextStyle get mobileSubTitle => const TextStyle(
+    fontWeight: FontWeight.w600, fontSize: 22, letterSpacing: 0.8);
 TextStyle get webButton =>
     const TextStyle(fontSize: 36, fontWeight: FontWeight.w500);
 
 TextStyle get webBody =>
     const TextStyle(fontSize: 16, fontWeight: FontWeight.w400);
+TextStyle get mobileBody =>
+    const TextStyle(fontSize: 15, fontWeight: FontWeight.w400);
