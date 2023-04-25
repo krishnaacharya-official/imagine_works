@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:imagine_works/helpers/navigation_bar.dart';
 import 'package:imagine_works/models/feature_model.dart';
 import 'package:imagine_works/responsive/resuable_components.dart';
@@ -672,7 +673,9 @@ class _TabletLayoutState extends State<TabletLayout> {
               carouselComponent(),
               getHorizontalSpace(20),
 
-              joinTheBetaButton,
+              joinTheBetaButton(() {
+                context.push('/login');
+              }),
             ]));
   }
 
@@ -787,7 +790,9 @@ class _TabletLayoutState extends State<TabletLayout> {
             textAlign: TextAlign.center,
           ),
           getHorizontalSpace(100),
-          joinTheBetaButton,
+          joinTheBetaButton(() {
+            context.push('/login');
+          }),
         ],
       ),
     );

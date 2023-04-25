@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:imagine_works/responsive/resuable_components.dart';
 import 'package:imagine_works/utlis/constants.dart';
 import 'package:sticky_headers/sticky_headers.dart';
@@ -581,45 +582,55 @@ class _MyWidgetState extends State<DesktopLayout> {
                       child: Text("About Us", style: webHeader))
                 ]),
                 Row(children: [
-                  Row(
-                    children: [
-                      const Icon(Icons.login),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "Login",
-                        style: webHeader,
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      // border: Border.all(width: 0.5, color: Colors.grey),
-                      gradient: const LinearGradient(
-                        begin: Alignment(0, -1),
-                        end: Alignment(-0, 1),
-                        colors: <Color>[Color(0xffffffff), Color(0xfff3f4f6)],
-                        stops: <double>[0, 1],
-                      ),
-                    ),
+                  InkWell(
+                    onTap: () {
+                      context.push('/login');
+                    },
                     child: Row(
                       children: [
-                        const Icon(Icons.person_add),
+                        const Icon(Icons.login),
                         const SizedBox(
                           width: 10,
                         ),
                         Text(
-                          "Join the beta",
-                          style:
-                              webHeader.copyWith(fontWeight: FontWeight.w600),
+                          "Login",
+                          style: webHeader,
                         )
                       ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  InkWell(
+                    onTap: () {
+                      context.push('/login');
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        // border: Border.all(width: 0.5, color: Colors.grey),
+                        gradient: const LinearGradient(
+                          begin: Alignment(0, -1),
+                          end: Alignment(-0, 1),
+                          colors: <Color>[Color(0xffffffff), Color(0xfff3f4f6)],
+                          stops: <double>[0, 1],
+                        ),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.person_add),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Join the beta",
+                            style:
+                                webHeader.copyWith(fontWeight: FontWeight.w600),
+                          )
+                        ],
+                      ),
                     ),
                   )
                 ])
@@ -666,7 +677,9 @@ class _MyWidgetState extends State<DesktopLayout> {
               carouselComponent(),
               getHorizontalSpace(20),
 
-              joinTheBetaButton,
+              joinTheBetaButton(() {
+                context.push('/login');
+              }),
             ]));
   }
 
@@ -781,7 +794,9 @@ class _MyWidgetState extends State<DesktopLayout> {
             textAlign: TextAlign.center,
           ),
           getHorizontalSpace(100),
-          joinTheBetaButton,
+          joinTheBetaButton(() {
+            context.push('/login');
+          }),
         ],
       ),
     );

@@ -21,12 +21,19 @@ List<FeaturesModel> carouselStrings = [
       ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
 ];
 
-get joinTheBetaButton => Container(
+Widget joinTheBetaButton(callback) {
+  return InkWell(
+    onTap: () {
+      callback();
+    },
+    child: Container(
       height: 48,
       width: 120,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
+
         // border: Border.all(width: 0.5, color: Colors.grey),
+
         gradient: const LinearGradient(
           begin: Alignment(0, -1),
           end: Alignment(-0, 1),
@@ -39,7 +46,10 @@ get joinTheBetaButton => Container(
         "Join the Beta",
         style: title.copyWith(fontWeight: FontWeight.bold),
       ),
-    );
+    ),
+  );
+}
+
 SizedBox getHorizontalSpace(double height) {
   return SizedBox(
     height: height,
