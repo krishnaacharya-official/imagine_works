@@ -4,6 +4,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:imagine_works/responsive/resuable_components.dart';
 import 'package:imagine_works/utlis/constants.dart';
+import 'package:sticky_headers/sticky_headers.dart';
 
 import '../models/feature_model.dart';
 
@@ -124,7 +125,9 @@ class _MyWidgetState extends State<DesktopLayout> {
     List<List<FeaturesModel>> subLists = splitList(carouselStrings, 4);
     return Scaffold(
       body: SingleChildScrollView(
-        child: Column(
+          child: StickyHeader(
+        header: headerComponent(),
+        content: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -136,7 +139,7 @@ class _MyWidgetState extends State<DesktopLayout> {
             footerSection(),
           ],
         ),
-      ),
+      )),
     );
   }
 
@@ -496,114 +499,122 @@ class _MyWidgetState extends State<DesktopLayout> {
       ),
       child: Column(
         children: [
-          headerComponent(),
           mainComponent(),
         ],
       ),
     );
   }
 
-  Container headerComponent() {
-    return Container(
-      constraints: BoxConstraints(minWidth: maxWidthWeb, maxWidth: maxWidthWeb),
-      width: double.infinity,
-      child: Row(
-          crossAxisAlignment: CrossAxisAlignment.baseline,
-          textBaseline: TextBaseline.alphabetic,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(children: [
-              SvgPicture.asset(
-                'assets/svg/idea.svg',
-                width: 40,
-                height: 40,
-              ),
-              const SizedBox(
-                width: 10,
-              ),
-              Text(
-                "ImagineWorks",
-                style: webHeader.copyWith(fontWeight: FontWeight.bold),
-              )
-            ]),
-            ///////////////////////////////////////////////////////////////////////////////////////////////
-            Row(children: [
-              const SizedBox(
-                width: 80,
-              ),
-              InkWell(
-                onTap: () {
-                  Scrollable.ensureVisible(
-                    sliderKey.currentContext!,
-                    duration: const Duration(milliseconds: 500),
-                    curve: Curves.easeInOut,
-                  );
-                },
-                child: Text(
-                  "Product",
-                  style: webHeader,
-                ),
-              ),
-              const SizedBox(
-                width: 15,
-              ),
-              InkWell(child: Text("Subscribe", style: webHeader)),
-              const SizedBox(
-                width: 15,
-              ),
-              InkWell(
-                  onTap: () {
-                    Scrollable.ensureVisible(
-                      aboutUsKey.currentContext!,
-                      duration: const Duration(milliseconds: 1000),
-                      curve: Curves.easeInOut,
-                    );
-                  },
-                  child: Text("About Us", style: webHeader))
-            ]),
-            Row(children: [
-              Row(
-                children: [
-                  const Icon(Icons.login),
+  Widget headerComponent() {
+    return Material(
+      elevation: 1,
+      color: Colors.white,
+      child: Center(
+        child: Container(
+          color: Colors.white,
+          constraints:
+              BoxConstraints(minWidth: maxWidthWeb, maxWidth: maxWidthWeb),
+          width: double.infinity,
+          child: Row(
+              crossAxisAlignment: CrossAxisAlignment.baseline,
+              textBaseline: TextBaseline.alphabetic,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(children: [
+                  SvgPicture.asset(
+                    'assets/svg/idea.svg',
+                    width: 40,
+                    height: 40,
+                  ),
                   const SizedBox(
                     width: 10,
                   ),
                   Text(
-                    "Login",
-                    style: webHeader,
+                    "ImagineWorks",
+                    style: webHeader.copyWith(fontWeight: FontWeight.bold),
                   )
-                ],
-              ),
-              const SizedBox(
-                width: 15,
-              ),
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  // border: Border.all(width: 0.5, color: Colors.grey),
-                  gradient: const LinearGradient(
-                    begin: Alignment(0, -1),
-                    end: Alignment(-0, 1),
-                    colors: <Color>[Color(0xffffffff), Color(0xfff3f4f6)],
-                    stops: <double>[0, 1],
+                ]),
+                ///////////////////////////////////////////////////////////////////////////////////////////////
+                Row(children: [
+                  const SizedBox(
+                    width: 80,
                   ),
-                ),
-                child: Row(
-                  children: [
-                    const Icon(Icons.person_add),
-                    const SizedBox(
-                      width: 10,
+                  InkWell(
+                    onTap: () {
+                      Scrollable.ensureVisible(
+                        sliderKey.currentContext!,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.easeInOut,
+                      );
+                    },
+                    child: Text(
+                      "Product",
+                      style: webHeader,
                     ),
-                    Text(
-                      "Join the beta",
-                      style: webHeader.copyWith(fontWeight: FontWeight.w600),
-                    )
-                  ],
-                ),
-              )
-            ])
-          ]),
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  InkWell(child: Text("Subscribe", style: webHeader)),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  InkWell(
+                      onTap: () {
+                        Scrollable.ensureVisible(
+                          aboutUsKey.currentContext!,
+                          duration: const Duration(milliseconds: 1000),
+                          curve: Curves.easeInOut,
+                        );
+                      },
+                      child: Text("About Us", style: webHeader))
+                ]),
+                Row(children: [
+                  Row(
+                    children: [
+                      const Icon(Icons.login),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Text(
+                        "Login",
+                        style: webHeader,
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    width: 15,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      // border: Border.all(width: 0.5, color: Colors.grey),
+                      gradient: const LinearGradient(
+                        begin: Alignment(0, -1),
+                        end: Alignment(-0, 1),
+                        colors: <Color>[Color(0xffffffff), Color(0xfff3f4f6)],
+                        stops: <double>[0, 1],
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.person_add),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          "Join the beta",
+                          style:
+                              webHeader.copyWith(fontWeight: FontWeight.w600),
+                        )
+                      ],
+                    ),
+                  )
+                ])
+              ]),
+        ),
+      ),
     );
   }
 
