@@ -17,6 +17,7 @@ class TabletLayout extends StatefulWidget {
 class _TabletLayoutState extends State<TabletLayout> {
   GlobalKey sliderKey = GlobalKey();
 
+  GlobalKey headerKey = GlobalKey();
   GlobalKey aboutUsKey = GlobalKey();
 
   String reason = '';
@@ -119,20 +120,29 @@ class _TabletLayoutState extends State<TabletLayout> {
         .toList();
     return Scaffold(
       appBar: AppBar(
-        title: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          SvgPicture.asset(
-            'assets/svg/idea.svg',
-            width: 30,
-            height: 30,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            "ImagineWorks",
-            style: webHeader.copyWith(fontWeight: FontWeight.bold),
-          )
-        ]),
+        title: InkWell(
+          onTap: () {
+            Scrollable.ensureVisible(
+              headerKey.currentContext!,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            );
+          },
+          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            SvgPicture.asset(
+              'assets/svg/idea.svg',
+              width: 30,
+              height: 30,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              "ImagineWorks",
+              style: webHeader.copyWith(fontWeight: FontWeight.bold),
+            )
+          ]),
+        ),
         actions: [
           Builder(builder: (context) {
             return IconButton(

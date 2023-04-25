@@ -16,8 +16,9 @@ class MobileLayout extends StatefulWidget {
 
 class _MobileLayoutState extends State<MobileLayout> {
   GlobalKey sliderKey = GlobalKey();
-
+  GlobalKey headerKey = GlobalKey();
   GlobalKey aboutUsKey = GlobalKey();
+
   String reason = '';
   final CarouselController _controller = CarouselController();
   int _index = 0;
@@ -37,18 +38,6 @@ class _MobileLayoutState extends State<MobileLayout> {
   void initState() {
     super.initState();
     _scroll();
-    // Future.delayed(const Duration(seconds: 1), () {
-    //   scrollController.animateTo(scrollController.position.maxScrollExtent,
-    //       duration: Duration(seconds: carouselStrings.length * 10),
-    //       curve: Curves.linear);
-    // });
-    // scrollController.addListener(() {
-    //   if (scrollController.position.pixels ==
-    //       scrollController.position.maxScrollExtent) {
-    //     // Scroll has reached the end, reset the position to the beginning.
-    //     scrollController.jumpTo(scrollController.position.minScrollExtent);
-    //   }
-    // });
   }
 
   @override
@@ -65,12 +54,6 @@ class _MobileLayoutState extends State<MobileLayout> {
         duration: Duration(seconds: carouselStrings.length * 5),
         curve: Curves.ease,
       );
-      // await Future.delayed(const Duration(seconds: 6));
-      // scrollController.animateTo(
-      //   scrollController.position.minScrollExtent,
-      //   duration: const Duration(seconds: 6),
-      //   curve: Curves.ease,
-      // );
     }
   }
 
@@ -130,20 +113,29 @@ class _MobileLayoutState extends State<MobileLayout> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-          SvgPicture.asset(
-            'assets/svg/idea.svg',
-            width: 30,
-            height: 30,
-          ),
-          const SizedBox(
-            width: 10,
-          ),
-          Text(
-            "ImagineWorks",
-            style: webHeader.copyWith(fontWeight: FontWeight.bold),
-          )
-        ]),
+        title: InkWell(
+          onTap: () {
+            Scrollable.ensureVisible(
+              headerKey.currentContext!,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            );
+          },
+          child: Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            SvgPicture.asset(
+              'assets/svg/idea.svg',
+              width: 30,
+              height: 30,
+            ),
+            const SizedBox(
+              width: 10,
+            ),
+            Text(
+              "ImagineWorks",
+              style: webHeader.copyWith(fontWeight: FontWeight.bold),
+            )
+          ]),
+        ),
         actions: [
           Builder(builder: (context) {
             return IconButton(

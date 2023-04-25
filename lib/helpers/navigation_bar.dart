@@ -4,6 +4,8 @@ import 'package:imagine_works/utlis/constants.dart';
 class CustomNavigationBar extends StatelessWidget {
   GlobalKey sliderKey = GlobalKey();
   GlobalKey aboutUsKey = GlobalKey();
+
+  GlobalKey headerKey = GlobalKey();
   CustomNavigationBar(
       {super.key, required this.sliderKey, required this.aboutUsKey});
 

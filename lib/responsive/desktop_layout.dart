@@ -18,6 +18,7 @@ class DesktopLayout extends StatefulWidget {
 class _MyWidgetState extends State<DesktopLayout> {
   GlobalKey sliderKey = GlobalKey();
   GlobalKey aboutUsKey = GlobalKey();
+  GlobalKey headerKey = GlobalKey();
   String reason = '';
   final CarouselController _controller = CarouselController();
   int _index = 0;
@@ -128,6 +129,7 @@ class _MyWidgetState extends State<DesktopLayout> {
           child: StickyHeader(
         header: headerComponent(),
         content: Column(
+          key: headerKey,
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -520,20 +522,29 @@ class _MyWidgetState extends State<DesktopLayout> {
               textBaseline: TextBaseline.alphabetic,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(children: [
-                  SvgPicture.asset(
-                    'assets/svg/idea.svg',
-                    width: 40,
-                    height: 40,
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    "ImagineWorks",
-                    style: webHeader.copyWith(fontWeight: FontWeight.bold),
-                  )
-                ]),
+                InkWell(
+                  onTap: () {
+                    Scrollable.ensureVisible(
+                      headerKey.currentContext!,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.easeInOut,
+                    );
+                  },
+                  child: Row(children: [
+                    SvgPicture.asset(
+                      'assets/svg/idea.svg',
+                      width: 40,
+                      height: 40,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      "ImagineWorks",
+                      style: webHeader.copyWith(fontWeight: FontWeight.bold),
+                    )
+                  ]),
+                ),
                 ///////////////////////////////////////////////////////////////////////////////////////////////
                 Row(children: [
                   const SizedBox(
