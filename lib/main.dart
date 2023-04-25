@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:imagine_works/responsive/desktop_layout.dart';
 import 'package:imagine_works/responsive/mobile_layout.dart';
 import 'package:imagine_works/responsive/responsive_layout.dart';
+import 'package:imagine_works/responsive/tablet_layout.dart';
 import 'package:imagine_works/theme.dart';
 
 import 'package:carousel_slider/carousel_slider.dart';
@@ -20,9 +21,10 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Imagine Works',
         theme: theme,
-        home: ResponsiveLayout(
+        home: const ResponsiveLayout(
+          tabletBody: TabletLayout(),
           mobileBody: MobileLayout(),
-          desktopBody: const DesktopLayout(),
+          desktopBody: DesktopLayout(),
         ));
   }
 }

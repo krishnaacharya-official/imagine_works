@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 class ResponsiveLayout extends StatelessWidget {
   final Widget mobileBody;
   final Widget desktopBody;
-
+  final Widget tabletBody;
   const ResponsiveLayout({
     super.key,
+    required this.tabletBody,
     required this.mobileBody,
     required this.desktopBody,
   });
@@ -17,7 +18,7 @@ class ResponsiveLayout extends StatelessWidget {
         return mobileBody;
       }
       if (constraints.maxWidth < 1100) {
-        // return tabletBody;
+        return tabletBody;
       }
       return desktopBody;
     });
