@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:imagine_works/responsive/resuable_components.dart';
 import 'package:imagine_works/utlis/constants.dart';
 import 'package:sticky_headers/sticky_headers.dart';
+import 'package:video_player/video_player.dart';
 
 import '../models/feature_model.dart';
 
@@ -20,6 +21,8 @@ class _MyWidgetState extends State<DesktopLayout> {
   GlobalKey sliderKey = GlobalKey();
   GlobalKey aboutUsKey = GlobalKey();
   GlobalKey headerKey = GlobalKey();
+
+  late VideoPlayerController _videoPlayerController;
   String reason = '';
   final CarouselController _controller = CarouselController();
   int _index = 0;
@@ -39,6 +42,13 @@ class _MyWidgetState extends State<DesktopLayout> {
     super.initState();
     scrollController = ScrollController();
     _scroll();
+    _videoPlayerController = VideoPlayerController.asset(mainVideoUrl)
+      ..initialize().then((_) {
+        _videoPlayerController.play();
+        _videoPlayerController.setLooping(true);
+        // Ensure the first frame is shown after the video is initialized
+        setState(() {});
+      });
   }
 
   Future<void> _scroll() async {
@@ -139,7 +149,7 @@ class _MyWidgetState extends State<DesktopLayout> {
               content: Column(
                 key: headerKey,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   topComponent(),
                   sliderAndFeaturesComponent(subLists),
@@ -501,19 +511,54 @@ class _MyWidgetState extends State<DesktopLayout> {
     );
   }
 
-  Container topComponent() {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        gradient: webGradientTwo,
-        // color: Colors.green,
-      ),
-      child: Column(
-        children: [
-          mainComponent(),
-        ],
-      ),
+  Widget topComponent() {
+    return Stack(
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            FittedBox(
+              fit: BoxFit.fill,
+              child: Container(
+                color: Colors.black,
+                height: 845,
+                width: 1600,
+                child: VideoPlayer(_videoPlayerController),
+              ),
+            ),
+          ],
+        ),
+        Container(
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            // gradient: webGradientTwo,
+            color: Colors.transparent,
+          ),
+          child: Column(
+            children: [
+              mainComponent(),
+            ],
+          ),
+        ),
+      ],
     );
+    // return Stack(
+    //   children: [
+    //     const VideoBackground(),
+    //     Container(
+    //       width: double.infinity,
+    //       decoration: const BoxDecoration(
+    //         // gradient: webGradientTwo,
+    //         color: Colors.transparent,
+    //       ),
+    //       child: Column(
+    //         children: [
+    //           mainComponent(),
+    //         ],
+    //       ),
+    //     ),
+    //   ],
+    // );
   }
 
   Widget headerComponent() {
@@ -798,14 +843,56 @@ class _MyWidgetState extends State<DesktopLayout> {
           getHorizontalSpace(60),
           Text(
             "Where Imagination Meets Intelligence",
-            style: webTitle,
+            style: webTitle.copyWith(color: Colors.white),
             textAlign: TextAlign.center,
           ),
-          getHorizontalSpace(100),
+          getHorizontalSpace(140),
           joinTheBetaButton(() {
             context.push('/login');
           }),
         ],
+      ),
+    );
+  }
+}
+
+class VideoBackground extends StatefulWidget {
+  const VideoBackground({Key? key}) : super(key: key);
+
+  @override
+  _VideoBackgroundState createState() => _VideoBackgroundState();
+}
+
+class _VideoBackgroundState extends State<VideoBackground> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.asset(mainVideoUrl)
+      ..initialize().then((_) {
+        _controller.play();
+        _controller.setLooping(true);
+        setState(() {});
+      });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.expand(
+      child: FittedBox(
+        fit: BoxFit.cover,
+        child: SizedBox(
+          width: 100,
+          height: 100,
+          child: VideoPlayer(_controller),
+        ),
       ),
     );
   }
