@@ -90,12 +90,12 @@ class _TabletLayoutState extends State<TabletLayout> {
                         width: 1100,
                         height: 500,
                         child: Container(
-                          color: Colors.amber,
-                          child: Center(
-                            child: Text(
-                              item.title,
-                            ),
-                          ),
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  // image: AssetImage('images/image2.webp'))),
+                                  image: AssetImage(item.images[0]))),
+                          // color: Colors.amber,
                         ),
                       ),
                       // Image.network(item, fit: BoxFit.cover, width: 1000.0),
@@ -787,9 +787,11 @@ class _TabletLayoutState extends State<TabletLayout> {
                   mainAxisSpacing: 10, crossAxisSpacing: 10, crossAxisCount: 3),
               children: [
                 ...carouselStrings[_index].images.map((e) => Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.fill, image: AssetImage(e))),
                       width: 150,
                       height: 150,
-                      color: Colors.amber,
                       // child: Text(e),
                     ))
               ],
