@@ -38,27 +38,31 @@ class _TabletLayoutState extends State<TabletLayout> {
   // late List<Widget> imageSlider;
   late List<Widget> imageSlider;
 
-  ScrollController scrollController = ScrollController();
+  late ScrollController scrollController;
 
   @override
   void initState() {
     super.initState();
     _scroll();
+    scrollController = ScrollController();
   }
 
   Future<void> _scroll() async {
     while (true) {
       await Future.delayed(const Duration(milliseconds: 40));
-      scrollController.animateTo(
-        scrollController.position.maxScrollExtent,
-        duration: Duration(seconds: carouselStrings.length * 10),
-        curve: Curves.ease,
-      );
+      if (scrollController.hasClients) {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: Duration(seconds: carouselStrings.length * 5),
+          curve: Curves.ease,
+        );
+      }
     }
   }
 
   @override
   void dispose() {
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -168,6 +172,39 @@ class _TabletLayoutState extends State<TabletLayout> {
             awardsSection(),
             footerSection(),
           ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          // border: Border.all(width: 0.5, color: Colors.grey),
+          gradient: const LinearGradient(
+            begin: Alignment(0, -1),
+            end: Alignment(-0, 1),
+            colors: <Color>[Color(0xffffffff), Color(0xfff3f4f6)],
+            stops: <double>[0, 1],
+          ),
+        ),
+        child: InkWell(
+          onTap: () {},
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                'assets/svg/idea.svg',
+                width: 20,
+                height: 20,
+              ),
+              const SizedBox(
+                width: 10,
+              ),
+              Text(
+                "Join the beta",
+                style: webFooter.copyWith(fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -284,41 +321,6 @@ class _TabletLayoutState extends State<TabletLayout> {
                   )
                 ],
               ),
-              getHorizontalSpace(10),
-              Container(
-                padding: const EdgeInsets.only(top: 10, bottom: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  // border: Border.all(width: 0.5, color: Colors.grey),
-                  gradient: const LinearGradient(
-                    begin: Alignment(0, -1),
-                    end: Alignment(-0, 1),
-                    colors: <Color>[Color(0xffffffff), Color(0xfff3f4f6)],
-                    stops: <double>[0, 1],
-                  ),
-                ),
-                child: InkWell(
-                  onTap: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/svg/idea.svg',
-                        width: 20,
-                        height: 20,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text(
-                        "Join the beta",
-                        style:
-                            mobileFooter.copyWith(fontWeight: FontWeight.bold),
-                      )
-                    ],
-                  ),
-                ),
-              )
             ],
           ),
         ],

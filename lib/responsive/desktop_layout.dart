@@ -33,26 +33,30 @@ class _MyWidgetState extends State<DesktopLayout> {
 
   // late List<Widget> imageSlider;
   late List<Widget> imageSlider;
-  ScrollController scrollController = ScrollController();
+  late ScrollController scrollController;
   @override
   void initState() {
     super.initState();
+    scrollController = ScrollController();
     _scroll();
   }
 
   Future<void> _scroll() async {
     while (true) {
       await Future.delayed(const Duration(milliseconds: 40));
-      scrollController.animateTo(
-        scrollController.position.maxScrollExtent,
-        duration: Duration(seconds: carouselStrings.length * 10),
-        curve: Curves.ease,
-      );
+      if (scrollController.hasClients) {
+        scrollController.animateTo(
+          scrollController.position.maxScrollExtent,
+          duration: Duration(seconds: carouselStrings.length * 5),
+          curve: Curves.ease,
+        );
+      }
     }
   }
 
   @override
   void dispose() {
+    scrollController.dispose();
     super.dispose();
   }
 
@@ -126,37 +130,63 @@ class _MyWidgetState extends State<DesktopLayout> {
 
     List<List<FeaturesModel>> subLists = splitList(carouselStrings, 4);
     return Scaffold(
-      body: Center(
-        child: SizedBox(
-          width: 1920,
-          child: SingleChildScrollView(
-              child: StickyHeader(
-            header: headerComponent(),
-            content: Column(
-              key: headerKey,
-              crossAxisAlignment: CrossAxisAlignment.center,
+        body: Center(
+          child: SizedBox(
+            width: 1920,
+            child: SingleChildScrollView(
+                child: StickyHeader(
+              header: headerComponent(),
+              content: Column(
+                key: headerKey,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  topComponent(),
+                  sliderAndFeaturesComponent(subLists),
+                  getHorizontalSpace(10),
+                  showTrustedParnters
+                      ? trustedPartners()
+                      : const SizedBox.shrink(),
+                  awardsSection(),
+                  footerSection(),
+                ],
+              ),
+            )),
+          ),
+        ),
+        bottomNavigationBar: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            // border: Border.all(width: 0.5, color: Colors.grey),
+            gradient: const LinearGradient(
+              begin: Alignment(0, -1),
+              end: Alignment(-0, 1),
+              colors: <Color>[Color(0xffffffff), Color(0xfff3f4f6)],
+              stops: <double>[0, 1],
+            ),
+          ),
+          child: InkWell(
+            onTap: () {},
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                topComponent(),
-                sliderAndFeaturesComponent(subLists),
-                getHorizontalSpace(10),
-                showTrustedParnters
-                    ? trustedPartners()
-                    : const SizedBox.shrink(),
-                awardsSection(),
-                footerSection(),
+                SvgPicture.asset(
+                  'assets/svg/idea.svg',
+                  width: 20,
+                  height: 20,
+                ),
+                const SizedBox(
+                  width: 10,
+                ),
+                Text(
+                  "Join the beta",
+                  style: webFooter.copyWith(fontWeight: FontWeight.bold),
+                )
               ],
             ),
-          )),
-        ),
-      ),
-      // bottomNavigationBar: SizedBox(
-      //   height: 60,
-      //   child: Center(
-      //     child:
-      //   ),
-      // ),
-    );
+          ),
+        ));
   }
 
   Container footerSection() {
@@ -267,41 +297,6 @@ class _MyWidgetState extends State<DesktopLayout> {
                           ),
                         )
                       ],
-                    ),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        // border: Border.all(width: 0.5, color: Colors.grey),
-                        gradient: const LinearGradient(
-                          begin: Alignment(0, -1),
-                          end: Alignment(-0, 1),
-                          colors: <Color>[Color(0xffffffff), Color(0xfff3f4f6)],
-                          stops: <double>[0, 1],
-                        ),
-                      ),
-                      child: InkWell(
-                        onTap: () {},
-                        child: Row(
-                          children: [
-                            SvgPicture.asset(
-                              'assets/svg/idea.svg',
-                              width: 20,
-                              height: 20,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Text(
-                              "Join the beta",
-                              style: webFooter.copyWith(
-                                  fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                      ),
                     )
                   ])
                 ]),
