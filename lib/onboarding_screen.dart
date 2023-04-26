@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imagine_works/models/user_model.dart';
 import 'package:imagine_works/utlis/constants.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -9,6 +10,8 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  final _emailKey = GlobalKey<FormState>();
+  final _passKey = GlobalKey<FormState>();
   TextEditingController? _emailAddressController;
   TextEditingController? _password;
   bool _formChecked = false;
@@ -128,6 +131,14 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   InkWell nextButton() {
     return InkWell(
       onTap: () {
+        if (_emailKey.currentState!.validate() &&
+            _passKey.currentState!.validate()) {
+          User payload = User(_emailAddressController!.text, _password!.text);
+
+          // Use payload.toJson() to send the payload to the api
+        }
+//
+
         setState(() {
           _formChecked = true;
         });
@@ -151,6 +162,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   TextFormField passwordField() {
     return TextFormField(
+      key: _passKey,
       obscureText: true,
       validator: (value) {
         if (value == null || _emailAddressController?.text.trim() == "") {
@@ -172,6 +184,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   TextFormField emailField() {
     return TextFormField(
+      key: _emailKey,
       keyboardType: TextInputType.emailAddress,
       validator: (value) {
         if (value == null || _emailAddressController?.text.trim() == "") {
