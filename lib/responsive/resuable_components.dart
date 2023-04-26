@@ -7,25 +7,25 @@ List<FeaturesModel> carouselStrings = [
     "images/image.jpg",
     "images/image3.jpg",
     "images/image3.jpg",
-    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg",
-    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg",
-    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg"
+    "images/image2.jpg",
+    "images/image2.jpg",
+    "images/image2.jpg"
   ]),
   FeaturesModel("Image Generation", "", [
     "images/image1.jpg",
-    "https://images.deepai.org/art-image/0de84ea178de439b8140f0179300d1ab/close-up-of-tall-dark-haired-female-warrior-eeb6ea-th.jpg",
-    "https://images.deepai.org/art-image/0de84ea178de439b8140f0179300d1ab/close-up-of-tall-dark-haired-female-warrior-eeb6ea-th.jpg",
-    "https://images.deepai.org/art-image/0de84ea178de439b8140f0179300d1ab/close-up-of-tall-dark-haired-female-warrior-eeb6ea-th.jpg",
-    "https://images.deepai.org/art-image/0de84ea178de439b8140f0179300d1ab/close-up-of-tall-dark-haired-female-warrior-eeb6ea-th.jpg",
-    "https://images.deepai.org/art-image/0de84ea178de439b8140f0179300d1ab/close-up-of-tall-dark-haired-female-warrior-eeb6ea-th.jpg"
+    "images/image2.jpg",
+    "images/image.jpg",
+    "images/image3.jpg",
+    "images/image2.jpg",
+    "images/image2.jpg"
   ]),
   FeaturesModel("Video Generation", "", [
     "images/image2.jpg",
-    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg",
-    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg",
-    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg",
-    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg",
-    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg"
+    "images/image2.jpg",
+    "images/image2.jpg",
+    "images/image2.jpg",
+    "images/image2.jpg",
+    "images/image2.jpg"
   ]),
   FeaturesModel("Image Upscaling", "", [
     "images/image3.jpg",

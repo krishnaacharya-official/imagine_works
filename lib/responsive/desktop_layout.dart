@@ -815,9 +815,11 @@ class _MyWidgetState extends State<DesktopLayout> {
                   mainAxisSpacing: 10, crossAxisSpacing: 10, crossAxisCount: 3),
               children: [
                 ...carouselStrings[_index].images.map((e) => Container(
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.fill, image: AssetImage(e))),
                       width: 150,
                       height: 150,
-                      color: Colors.amber,
                       // child: Text(e),
                     ))
               ],
