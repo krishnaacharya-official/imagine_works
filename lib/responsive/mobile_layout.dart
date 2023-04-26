@@ -7,6 +7,7 @@ import 'package:imagine_works/helpers/navigation_bar.dart';
 import 'package:imagine_works/models/feature_model.dart';
 import 'package:imagine_works/responsive/resuable_components.dart';
 import 'package:imagine_works/utlis/constants.dart';
+import 'package:video_player/video_player.dart';
 
 class MobileLayout extends StatefulWidget {
   const MobileLayout({super.key});
@@ -35,10 +36,19 @@ class _MobileLayoutState extends State<MobileLayout> {
   late List<Widget> imageSlider;
   ScrollController scrollController = ScrollController();
 
+  late VideoPlayerController _videoPlayerController;
   @override
   void initState() {
     super.initState();
     _scroll();
+    // _videoPlayerController = VideoPlayerController.network(
+    //     "https://d3phaj0sisr2ct.cloudfront.net/site/videos/hero-homepage-v0.mp4")
+    //   ..initialize().then((_) {
+    //     _videoPlayerController.play();
+    //     _videoPlayerController.setLooping(true);
+    //     // Ensure the first frame is shown after the video is initialized
+    //     setState(() {});
+    //   });
   }
 
   @override
@@ -645,34 +655,52 @@ class _MobileLayoutState extends State<MobileLayout> {
     );
   }
 
-  Container mainSection() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: webGradientTwo,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          getHorizontalSpace(20),
-          SvgPicture.asset(
-            'assets/svg/idea.svg',
-            width: 40,
-            height: 40,
+  Widget mainSection() {
+    return Stack(
+      children: [
+        // Column(
+        //   mainAxisAlignment: MainAxisAlignment.start,
+        //   children: [
+        //     FittedBox(
+        //       fit: BoxFit.fill,
+        //       child: Container(
+        //         color: Colors.black,
+        //         height: 845,
+        //         width: 1600,
+        //         child: VideoPlayer(_videoPlayerController),
+        //       ),
+        //     ),
+        //   ],
+        // ),
+        Container(
+          padding: const EdgeInsets.all(16),
+          decoration: BoxDecoration(
+            gradient: webGradientTwo,
           ),
-          getHorizontalSpace(20),
-          Text(
-            "Where Imagination Meets Intelligence",
-            style: mobileTitle,
-            textAlign: TextAlign.center,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              getHorizontalSpace(20),
+              SvgPicture.asset(
+                'assets/svg/idea.svg',
+                width: 40,
+                height: 40,
+              ),
+              getHorizontalSpace(20),
+              Text(
+                "Where Imagination Meets Intelligence",
+                style: mobileTitle,
+                textAlign: TextAlign.center,
+              ),
+              getHorizontalSpace(40),
+              joinTheBetaButton(() {
+                context.push('/login');
+              }),
+            ],
           ),
-          getHorizontalSpace(40),
-          joinTheBetaButton(() {
-            context.push('/login');
-          }),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

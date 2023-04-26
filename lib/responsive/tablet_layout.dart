@@ -73,6 +73,7 @@ class _TabletLayoutState extends State<TabletLayout> {
   @override
   void dispose() {
     scrollController.dispose();
+    _videoPlayerController.dispose();
     super.dispose();
   }
 
@@ -789,7 +790,7 @@ class _TabletLayoutState extends State<TabletLayout> {
                       width: 150,
                       height: 150,
                       color: Colors.amber,
-                      child: Text(e),
+                      // child: Text(e),
                     ))
               ],
             ),

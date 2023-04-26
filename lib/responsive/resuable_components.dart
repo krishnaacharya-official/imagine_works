@@ -3,22 +3,70 @@ import 'package:imagine_works/models/feature_model.dart';
 import 'package:imagine_works/utlis/constants.dart';
 
 List<FeaturesModel> carouselStrings = [
-  FeaturesModel("Custom Models", "",
-      ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
-  FeaturesModel("Image Generation", "",
-      ["Yello", "Yello", "Yello", "Yello", "Yello", "Yello"]),
-  FeaturesModel("Video Generation", "",
-      ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
-  FeaturesModel("Image Upscaling", "",
-      ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
-  FeaturesModel(
-      "Inpainting", "", ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
-  FeaturesModel("Outpainting", "",
-      ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
-  FeaturesModel("Image to Image", "",
-      ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
-  FeaturesModel("Video to Video", "",
-      ["Hello", "Hello", "Hello", "Hello", "Hello", "Hello"]),
+  FeaturesModel("Custom Models", "", [
+    "images/image.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg",
+    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg",
+    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg"
+  ]),
+  FeaturesModel("Image Generation", "", [
+    "images/image1.jpg",
+    "https://images.deepai.org/art-image/0de84ea178de439b8140f0179300d1ab/close-up-of-tall-dark-haired-female-warrior-eeb6ea-th.jpg",
+    "https://images.deepai.org/art-image/0de84ea178de439b8140f0179300d1ab/close-up-of-tall-dark-haired-female-warrior-eeb6ea-th.jpg",
+    "https://images.deepai.org/art-image/0de84ea178de439b8140f0179300d1ab/close-up-of-tall-dark-haired-female-warrior-eeb6ea-th.jpg",
+    "https://images.deepai.org/art-image/0de84ea178de439b8140f0179300d1ab/close-up-of-tall-dark-haired-female-warrior-eeb6ea-th.jpg",
+    "https://images.deepai.org/art-image/0de84ea178de439b8140f0179300d1ab/close-up-of-tall-dark-haired-female-warrior-eeb6ea-th.jpg"
+  ]),
+  FeaturesModel("Video Generation", "", [
+    "images/image2.jpg",
+    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg",
+    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg",
+    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg",
+    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg",
+    "https://images.deepai.org/art-image/22428d8a4ca7435ca03a85cceb4ed927/a-dark-techpriest-of-mars-with-a-dirty-red-cloak-with.jpg"
+  ]),
+  FeaturesModel("Image Upscaling", "", [
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg"
+  ]),
+  FeaturesModel("Inpainting", "", [
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg"
+  ]),
+  FeaturesModel("Outpainting", "", [
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg"
+  ]),
+  FeaturesModel("Image to Image", "", [
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg"
+  ]),
+  FeaturesModel("Video to Video", "", [
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg",
+    "images/image3.jpg"
+  ]),
 ];
 
 Widget joinTheBetaButton(callback) {

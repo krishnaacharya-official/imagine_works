@@ -67,6 +67,7 @@ class _MyWidgetState extends State<DesktopLayout> {
   @override
   void dispose() {
     scrollController.dispose();
+    _videoPlayerController.dispose();
     super.dispose();
   }
 
@@ -93,12 +94,12 @@ class _MyWidgetState extends State<DesktopLayout> {
                         width: 1100,
                         height: 500,
                         child: Container(
-                          color: Colors.amber,
-                          child: Center(
-                            child: Text(
-                              item.title,
-                            ),
-                          ),
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  // image: AssetImage('images/image2.webp'))),
+                                  image: AssetImage(item.images[0]))),
+                          // color: Colors.amber,
                         ),
                       ),
                       // Image.network(item, fit: BoxFit.cover, width: 1000.0),
@@ -817,7 +818,7 @@ class _MyWidgetState extends State<DesktopLayout> {
                       width: 150,
                       height: 150,
                       color: Colors.amber,
-                      child: Text(e),
+                      // child: Text(e),
                     ))
               ],
             ),
@@ -851,48 +852,6 @@ class _MyWidgetState extends State<DesktopLayout> {
             context.push('/login');
           }),
         ],
-      ),
-    );
-  }
-}
-
-class VideoBackground extends StatefulWidget {
-  const VideoBackground({Key? key}) : super(key: key);
-
-  @override
-  _VideoBackgroundState createState() => _VideoBackgroundState();
-}
-
-class _VideoBackgroundState extends State<VideoBackground> {
-  late VideoPlayerController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = VideoPlayerController.asset(mainVideoUrl)
-      ..initialize().then((_) {
-        _controller.play();
-        _controller.setLooping(true);
-        setState(() {});
-      });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _controller.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: FittedBox(
-        fit: BoxFit.cover,
-        child: SizedBox(
-          width: 100,
-          height: 100,
-          child: VideoPlayer(_controller),
-        ),
       ),
     );
   }
