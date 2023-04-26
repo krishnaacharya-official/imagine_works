@@ -8,6 +8,8 @@ import 'package:imagine_works/models/feature_model.dart';
 import 'package:imagine_works/responsive/resuable_components.dart';
 import 'package:imagine_works/utlis/constants.dart';
 
+import 'package:video_player/video_player.dart';
+
 class TabletLayout extends StatefulWidget {
   const TabletLayout({super.key});
 
@@ -39,12 +41,20 @@ class _TabletLayoutState extends State<TabletLayout> {
   late List<Widget> imageSlider;
 
   late ScrollController scrollController;
-
+  late VideoPlayerController _videoPlayerController;
   @override
   void initState() {
     super.initState();
-    _scroll();
+
     scrollController = ScrollController();
+    _scroll();
+    _videoPlayerController = VideoPlayerController.asset(mainVideoUrl)
+      ..initialize().then((_) {
+        _videoPlayerController.play();
+        _videoPlayerController.setLooping(true);
+        // Ensure the first frame is shown after the video is initialized
+        setState(() {});
+      });
   }
 
   Future<void> _scroll() async {
@@ -522,14 +532,36 @@ class _TabletLayoutState extends State<TabletLayout> {
     );
   }
 
-  Container topComponent() {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        gradient: webGradientTwo,
-        // color: Colors.green,
-      ),
-      child: mainComponent(),
+  Widget topComponent() {
+    return Stack(
+      children: [
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            FittedBox(
+              fit: BoxFit.fill,
+              child: Container(
+                color: Colors.black,
+                height: 845,
+                width: 1600,
+                child: VideoPlayer(_videoPlayerController),
+              ),
+            ),
+          ],
+        ),
+        Container(
+          width: double.infinity,
+          decoration: const BoxDecoration(
+            // gradient: webGradientTwo,
+            color: Colors.transparent,
+          ),
+          child: Column(
+            children: [
+              mainComponent(),
+            ],
+          ),
+        ),
+      ],
     );
   }
 
@@ -777,16 +809,16 @@ class _TabletLayoutState extends State<TabletLayout> {
           getHorizontalSpace(80),
           SvgPicture.asset(
             'assets/svg/idea.svg',
-            width: 100,
-            height: 100,
+            width: 60,
+            height: 60,
           ),
           getHorizontalSpace(60),
           Text(
             "Where Imagination Meets Intelligence",
-            style: tabTitle,
+            style: tabTitle.copyWith(color: Colors.white),
             textAlign: TextAlign.center,
           ),
-          getHorizontalSpace(100),
+          getHorizontalSpace(30),
           joinTheBetaButton(() {
             context.push('/login');
           }),

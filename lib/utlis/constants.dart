@@ -88,7 +88,7 @@ TextStyle get mobileFooter =>
 TextStyle get webTitle =>
     const TextStyle(fontWeight: FontWeight.w700, fontSize: 56);
 TextStyle get tabTitle =>
-    const TextStyle(fontWeight: FontWeight.w700, fontSize: 42);
+    const TextStyle(fontWeight: FontWeight.w700, fontSize: 32);
 TextStyle get mobileTitle =>
     const TextStyle(fontWeight: FontWeight.w700, fontSize: 32);
 TextStyle get webSubTitle => const TextStyle(
