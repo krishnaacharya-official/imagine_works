@@ -41,18 +41,24 @@ class _MobileLayoutState extends State<MobileLayout> {
   void initState() {
     super.initState();
     _scroll();
-    // _videoPlayerController = VideoPlayerController.network(
-    //     "https://d3phaj0sisr2ct.cloudfront.net/site/videos/hero-homepage-v0.mp4")
-    //   ..initialize().then((_) {
-    //     _videoPlayerController.play();
-    //     _videoPlayerController.setLooping(true);
-    //     // Ensure the first frame is shown after the video is initialized
-    //     setState(() {});
-    //   });
+    _videoPlayerController = VideoPlayerController.asset("assets/$mainVideoUrl")
+      ..initialize().then((_) {
+        _videoPlayerController.play();
+        _videoPlayerController.setLooping(true);
+        // Ensure the first frame is shown after the video is initialized
+        setState(() {});
+      });
+    _videoPlayerController.addListener(() {
+      if (_videoPlayerController.value.hasError) {
+        print("Error${_videoPlayerController.value.errorDescription}");
+      }
+      if (_videoPlayerController.value.isBuffering) {}
+    });
   }
 
   @override
   void dispose() {
+    _videoPlayerController.dispose();
     scrollController.dispose();
     super.dispose();
   }
@@ -660,25 +666,24 @@ class _MobileLayoutState extends State<MobileLayout> {
   Widget mainSection() {
     return Stack(
       children: [
-        // Column(
-        //   mainAxisAlignment: MainAxisAlignment.start,
-        //   children: [
-        //     FittedBox(
-        //       fit: BoxFit.fill,
-        //       child: Container(
-        //         color: Colors.black,
-        //         height: 845,
-        //         width: 1600,
-        //         child: VideoPlayer(_videoPlayerController),
-        //       ),
-        //     ),
-        //   ],
-        // ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            FittedBox(
+              fit: BoxFit.fill,
+              child: SizedBox(
+                height: 1400,
+                width: 1600,
+                child: VideoPlayer(_videoPlayerController),
+              ),
+            ),
+          ],
+        ),
         Container(
           padding: const EdgeInsets.all(16),
-          decoration: BoxDecoration(
-            gradient: webGradientTwo,
-          ),
+          decoration: const BoxDecoration(
+              // gradient: webGradientTwo,
+              color: Colors.transparent),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -692,7 +697,7 @@ class _MobileLayoutState extends State<MobileLayout> {
               getHorizontalSpace(20),
               Text(
                 "Where Imagination Meets Intelligence",
-                style: mobileTitle,
+                style: mobileTitle.copyWith(color: Colors.white),
                 textAlign: TextAlign.center,
               ),
               getHorizontalSpace(40),

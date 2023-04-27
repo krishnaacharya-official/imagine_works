@@ -4,8 +4,9 @@ double get maxWidthWeb => 1200;
 
 bool get showTrustedParnters => true;
 
-String mainVideoUrl =
-    "https://d3phaj0sisr2ct.cloudfront.net/site/videos/hero-homepage-v0.mp4";
+// String mainVideoUrl =
+//     "https://d3phaj0sisr2ct.cloudfront.net/site/videos/hero-homepage-v0.mp4";
+String mainVideoUrl = "video/sample.mp4";
 
 List<String> listPartner = [
   "https://d3phaj0sisr2ct.cloudfront.net/site/logos/mbc.svg",

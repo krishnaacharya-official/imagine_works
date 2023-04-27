@@ -36,28 +36,28 @@ List<FeaturesModel> carouselStrings = [
     "images/image3.jpg"
   ]),
   FeaturesModel("Inpainting", "", [
-    "images/image3.jpg",
-    "images/image3.jpg",
-    "images/image3.jpg",
-    "images/image3.jpg",
-    "images/image3.jpg",
-    "images/image3.jpg"
+    "images/image1.jpg",
+    "images/image1.jpg",
+    "images/image1.jpg",
+    "images/image1.jpg",
+    "images/image1.jpg",
+    "images/image1.jpg"
   ]),
   FeaturesModel("Outpainting", "", [
-    "images/image3.jpg",
-    "images/image3.jpg",
-    "images/image3.jpg",
-    "images/image3.jpg",
-    "images/image3.jpg",
-    "images/image3.jpg"
+    "images/image2.jpg",
+    "images/image2.jpg",
+    "images/image2.jpg",
+    "images/image2.jpg",
+    "images/image2.jpg",
+    "images/image2.jpg"
   ]),
   FeaturesModel("Image to Image", "", [
-    "images/image3.jpg",
-    "images/image3.jpg",
-    "images/image3.jpg",
-    "images/image3.jpg",
-    "images/image3.jpg",
-    "images/image3.jpg"
+    "images/image4.jpg",
+    "images/image4.jpg",
+    "images/image4.jpg",
+    "images/image4.jpg",
+    "images/image4.jpg",
+    "images/image4.jpg"
   ]),
   FeaturesModel("Video to Video", "", [
     "images/image3.jpg",

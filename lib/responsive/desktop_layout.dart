@@ -520,8 +520,7 @@ class _MyWidgetState extends State<DesktopLayout> {
           children: [
             FittedBox(
               fit: BoxFit.fill,
-              child: Container(
-                color: Colors.black,
+              child: SizedBox(
                 height: 845,
                 width: 1600,
                 child: VideoPlayer(_videoPlayerController),

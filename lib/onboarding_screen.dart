@@ -137,7 +137,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
           // Use payload.toJson() to send the payload to the api
         }
-//
 
         setState(() {
           _formChecked = true;
